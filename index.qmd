@@ -1,5 +1,5 @@
 ---
-title: "quarto_website"
+title: "Aquaakuma"
 listing:
   contents: posts
   sort: "date desc"
