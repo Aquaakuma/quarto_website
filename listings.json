@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/introduction-to-deep-learning-day3/index.html",
       "/posts/introduction-to-deep-learning-day2/index.html",
       "/posts/introduction-to-deep-learning-day1/index.html"
     ]
