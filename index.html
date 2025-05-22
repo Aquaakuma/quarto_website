@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto_website</title>
+<title>Aquaakuma</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -99,8 +99,22 @@ ul.task-list li input[type="checkbox"] {
   })
   </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -140,7 +154,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">quarto_website</span>
+    <span class="navbar-title">Aquaakuma</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -154,12 +168,7 @@ window.Quarto = {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://github.com/Aquaakuma"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -174,7 +183,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">quarto_website</h1>
+      <h1 class="title">Aquaakuma</h1>
                       </div>
   </div>
     
@@ -192,7 +201,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="YW5hbHlzaXM=">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29kZQ==">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -206,10 +215,35 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1747699200000" data-listing-file-modified-sort="1747754261986" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="132">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1747872000000" data-listing-file-modified-sort="1747887303576" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="209">
+<div class="thumbnail"><a href="./posts/introduction-to-deep-learning-day2/index.html" class="no-external">
+
+<p class="card-img-top"><img src="posts/introduction-to-deep-learning-day2/softmaxreg.svg" alt="softmax回归是一种单层神经网络"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/introduction-to-deep-learning-day2/index.html" class="no-external">深度学习入门(day2) - softmax回归</a>
+</h3>
+<div class="delink listing-description"><a href="./posts/introduction-to-deep-learning-day2/index.html" class="no-external">
+<p>回归除了可以用于预测多少的问题，也可以用于解决分类问题。</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/introduction-to-deep-learning-day2/index.html" class="no-external">
+<div class="listing-date">
+May 22, 2025
+</div>
+<div class="listing-author">
+TUT
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1747699200000" data-listing-file-modified-sort="1747887303283" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="145">
 <div class="thumbnail"><a href="./posts/introduction-to-deep-learning-day1/index.html" class="no-external">
 
-<p class="card-img-top"><img src="posts/introduction-to-deep-learning-day1/index_files/figure-html/cell-4-output-1.png"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img src="posts/introduction-to-deep-learning-day1/index_files/figure-html/cell-4-output-1.svg"  class="thumbnail-image card-img"/></p>
 
 </a></div>
 <div class="body">
@@ -217,12 +251,7 @@ window.Quarto = {
 <a href="./posts/introduction-to-deep-learning-day1/index.html" class="no-external">深度学习入门(day1) - 线性回归</a>
 </h3>
 <div class="delink listing-description"><a href="./posts/introduction-to-deep-learning-day1/index.html" class="no-external">
-有一组数据 <span class="math inline">\(\mathbf{X} =
-\begin{bmatrix}
-x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1n} \\
-x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2n} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-x_{d1} &amp; x_{d2} &amp; \cdots…</span><span class="math inline"></span><span class="math inline"></span><span class="math inline"></span><span class="math inline"></span><span class="math inline"></span><span class="math inline"></span>
+<p>通过了解线性回归的数学原理，用python代码从零开始实现简单的线性回归模型。</p>
 </a></div>
 </div>
 <div class="metadata">
@@ -232,70 +261,6 @@ May 20, 2025
 </div>
 <div class="listing-author">
 TUT
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="bmV3cyUyQ2NvZGUlMkNhbmFseXNpcw==" data-listing-date-sort="1747699200000" data-listing-file-modified-sort="1747754261986" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
-<div class="thumbnail"><a href="./posts/post-with-code/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/post-with-code/image.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/post-with-code/index.html" class="no-external">Post With Code</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">news</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y29kZQ=='); return false;">code</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YW5hbHlzaXM='); return false;">analysis</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/post-with-code/index.html" class="no-external">
-This is a post with executable code.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/post-with-code/index.html" class="no-external">
-<div class="listing-date">
-May 20, 2025
-</div>
-<div class="listing-author">
-Harlow Malloc
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="bmV3cw==" data-listing-date-sort="1747440000000" data-listing-file-modified-sort="1747754261986" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
-<div class="thumbnail"><a href="./posts/welcome/index.html" class="no-external">
-
-<p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">news</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/welcome/index.html" class="no-external">
-This is the first post in a Quarto blog. Welcome!
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-May 17, 2025
-</div>
-<div class="listing-author">
-Tristan O’Malley
 </div>
 </a>
 </div>

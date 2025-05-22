@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/welcome/index.html</loc>
-    <lastmod>2025-05-20T15:17:41.986Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day1/index.html</loc>
-    <lastmod>2025-05-20T15:17:41.986Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
-    <lastmod>2025-05-20T15:17:41.981Z</lastmod>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day2/index.html</loc>
+    <lastmod>2025-05-22T04:15:03.576Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/index.html</loc>
-    <lastmod>2025-05-20T15:17:41.981Z</lastmod>
+    <lastmod>2025-05-22T04:15:03.282Z</lastmod>
   </url>
   <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/post-with-code/index.html</loc>
-    <lastmod>2025-05-20T15:17:41.986Z</lastmod>
+    <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
+    <lastmod>2025-05-22T04:15:03.282Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day1/index.html</loc>
+    <lastmod>2025-05-22T04:15:03.283Z</lastmod>
   </url>
 </urlset>
