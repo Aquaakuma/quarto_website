@@ -4,6 +4,8 @@ project:
 website:
   title: "Aquaakuma"
   navbar:
+    title: false
+    logo: images/home-1.svg
     right:
       - about.qmd
       - icon: github
