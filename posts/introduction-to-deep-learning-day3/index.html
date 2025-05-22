@@ -262,7 +262,7 @@ window.Quarto = {
 <section id="线性回归的简洁实现" class="level2">
 <h2 class="anchored" data-anchor-id="线性回归的简洁实现">线性回归的简洁实现</h2>
 <p>使用pytroch简洁的实现线性回归模型 ### 生成数据集 首先生成人工数据集</p>
-<div id="3adb276d" class="cell">
+<div id="3adb276d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils <span class="im">import</span> data</span>
@@ -282,7 +282,7 @@ window.Quarto = {
 <section id="读取数据集" class="level3">
 <h3 class="anchored" data-anchor-id="读取数据集">读取数据集</h3>
 <p>调用<code>torch.utils</code>模块中的<code>DataLoader</code>方法读取数据集，它可以通过设定<code>shuffle</code>自动打乱顺序，同时返回批量为<code>batch_size</code>的可迭代对象。</p>
-<div id="9c823c60" class="cell" data-execution_count="168">
+<div id="9c823c60" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_array(data_array, batch_size, is_train<span class="op">=</span><span class="va">True</span>):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""构造一个PyTorch数据迭代器"""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> data.TensorDataset(<span class="op">*</span>data_array) <span class="co"># 传入的data_array是元组(X, y)，要先解包，它能将多个tensor对齐组成数据集。</span></span>
@@ -292,34 +292,34 @@ window.Quarto = {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>data_iter <span class="op">=</span> load_array((features, labels), batch_size)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(<span class="bu">iter</span>(data_iter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="168">
-<pre><code>[tensor([[ 1.6399,  1.0388],
-         [ 1.6064, -1.3936],
-         [-0.0386,  1.3717],
-         [ 0.9302, -1.1288],
-         [ 1.3340, -1.4483],
-         [-0.2042, -0.9463],
-         [-0.3373, -2.2008],
-         [ 1.4953, -0.2453],
-         [ 0.7445, -0.0620],
-         [ 0.9325, -0.7204]]),
- tensor([[ 3.9289],
-         [12.1537],
-         [-0.5295],
-         [ 9.9016],
-         [11.7910],
-         [ 7.0217],
-         [10.9965],
-         [ 8.0189],
-         [ 5.9063],
-         [ 8.5207]])]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>[tensor([[ 1.2391,  0.5222],
+         [ 0.6032, -0.7112],
+         [-0.3235, -0.7194],
+         [-0.8582,  0.7941],
+         [-0.3545,  0.7127],
+         [-0.1352, -2.4194],
+         [ 0.8341,  0.3817],
+         [-0.4976,  0.1100],
+         [ 0.1163, -1.0321],
+         [ 1.5996, -0.9930]]),
+ tensor([[ 4.9098],
+         [ 7.8291],
+         [ 5.9892],
+         [-0.2285],
+         [ 1.0782],
+         [12.1557],
+         [ 4.5773],
+         [ 2.8291],
+         [ 7.9469],
+         [10.7816]])]</code></pre>
 </div>
 </div>
 </section>
 <section id="定义模型" class="level3">
 <h3 class="anchored" data-anchor-id="定义模型">定义模型</h3>
 <p>首先定义一个模型变量<code>net</code>，它是一个<code>Sequential</code>类的实例。当给定输入数据时，它能将数据传入第一层，然后将第一次层的输出作为第二层的输入。。。</p>
-<div id="7b21cf7b" class="cell" data-execution_count="169">
+<div id="7b21cf7b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> nn.Sequential(nn.Linear(<span class="dv">2</span>, <span class="dv">1</span>)) <span class="co"># Linear方法接受两个参数，第一个参数指定输入特征的形状，第二个指定输出特征的形状。</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -328,10 +328,10 @@ window.Quarto = {
 <section id="初始化模型参数" class="level3">
 <h3 class="anchored" data-anchor-id="初始化模型参数">初始化模型参数</h3>
 <p>可以通过<code>net[0]</code>来选定第一个层，使用<code>weight.data</code>和<code>bias.data</code>访问参数，它会被初始化成随机值，可以使用<code>normal_</code>和<code>fill_</code>来重写参数。</p>
-<div id="91983e88" class="cell" data-execution_count="170">
+<div id="91983e88" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>net[<span class="dv">0</span>].weight.data.normal_(<span class="dv">0</span>, <span class="fl">0.01</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>net[<span class="dv">0</span>].bias.data.fill_(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="170">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>tensor([0.])</code></pre>
 </div>
 </div>
@@ -339,14 +339,14 @@ window.Quarto = {
 <section id="定义损失函数" class="level3">
 <h3 class="anchored" data-anchor-id="定义损失函数">定义损失函数</h3>
 <p>pytorch中的均方损失是<code>MSELoss</code>类，它默认返回所有样本损失的平均值（由reduction指定mean、sum、none）。</p>
-<div id="1c2e295b" class="cell" data-execution_count="171">
+<div id="1c2e295b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> nn.MSELoss()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="定义优化算法" class="level3">
 <h3 class="anchored" data-anchor-id="定义优化算法">定义优化算法</h3>
 <p>在pytorch的<code>optim</code>模块中有很多梯度下降算法的变种，这里使用<code>SGD</code>，它接收的<code>params</code>参数通过<code>net.parameters()</code>获得</p>
-<div id="418445bf" class="cell" data-execution_count="172">
+<div id="418445bf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span>torch.optim.SGD(net.parameters(), lr<span class="op">=</span><span class="fl">0.03</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="训练" class="level4">
@@ -357,7 +357,7 @@ window.Quarto = {
 <li><p>通过进行反向传播来计算梯度。</p></li>
 <li><p>通过调用优化器来更新模型参数。</p></li>
 </ol>
-<div id="950efad7" class="cell" data-execution_count="173">
+<div id="950efad7" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> X, y <span class="kw">in</span> data_iter:</span>
@@ -374,11 +374,11 @@ window.Quarto = {
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> net[<span class="dv">0</span>].bias.data</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'b的估计误差：'</span>, true_b <span class="op">-</span> b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>epoch 1, loss 0.000193
-epoch 2, loss 0.000097
-epoch 3, loss 0.000096
-w的估计误差： tensor([ 0.0006, -0.0001])
-b的估计误差： tensor([-8.7261e-05])</code></pre>
+<pre><code>epoch 1, loss 0.000299
+epoch 2, loss 0.000102
+epoch 3, loss 0.000101
+w的估计误差： tensor([-8.7142e-04, -3.1710e-05])
+b的估计误差： tensor([0.0005])</code></pre>
 </div>
 </div>
 </section>
@@ -387,39 +387,38 @@ b的估计误差： tensor([-8.7261e-05])</code></pre>
 <section id="softmax回归的简洁实现" class="level2">
 <h2 class="anchored" data-anchor-id="softmax回归的简洁实现">softmax回归的简洁实现</h2>
 <p>通过深度学习框架的高级API也能更方便地实现softmax回归模型。</p>
-<div id="7773f451" class="cell">
+<div id="7773f451" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> transforms</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">'svg'</span>  <span class="co"># 在 Jupyter 中设置矢量图显示</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_dataloader_workers():</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">4</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_data_fashion_mnist(batch_size, resize<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""下载Fashion-MNIST数据集，然后将其加载到内存中"""</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    trans <span class="op">=</span> [transforms.ToTensor()]</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resize:</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        trans.insert(<span class="dv">0</span>, transforms.Resize(resize))</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    trans <span class="op">=</span> transforms.Compose(trans)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    mnist_train <span class="op">=</span> torchvision.datasets.FashionMNIST(</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        root<span class="op">=</span><span class="st">"./data"</span>, train<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>trans, download<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    mnist_test <span class="op">=</span> torchvision.datasets.FashionMNIST(</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        root<span class="op">=</span><span class="st">"./data"</span>, train<span class="op">=</span><span class="va">False</span>, transform<span class="op">=</span>trans, download<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (data.DataLoader(mnist_train, batch_size, shuffle<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                            num_workers<span class="op">=</span>get_dataloader_workers()),</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>            data.DataLoader(mnist_test, batch_size, shuffle<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                            num_workers<span class="op">=</span>get_dataloader_workers()))</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">256</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>train_iter, test_iter <span class="op">=</span> load_data_fashion_mnist(batch_size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_dataloader_workers():</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">4</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_data_fashion_mnist(batch_size, resize<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""下载Fashion-MNIST数据集，然后将其加载到内存中"""</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    trans <span class="op">=</span> [transforms.ToTensor()]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> resize:</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        trans.insert(<span class="dv">0</span>, transforms.Resize(resize))</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    trans <span class="op">=</span> transforms.Compose(trans)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    mnist_train <span class="op">=</span> torchvision.datasets.FashionMNIST(</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        root<span class="op">=</span><span class="st">"./data"</span>, train<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>trans, download<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    mnist_test <span class="op">=</span> torchvision.datasets.FashionMNIST(</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        root<span class="op">=</span><span class="st">"./data"</span>, train<span class="op">=</span><span class="va">False</span>, transform<span class="op">=</span>trans, download<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (data.DataLoader(mnist_train, batch_size, shuffle<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                            num_workers<span class="op">=</span>get_dataloader_workers()),</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>            data.DataLoader(mnist_test, batch_size, shuffle<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                            num_workers<span class="op">=</span>get_dataloader_workers()))</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">256</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>train_iter, test_iter <span class="op">=</span> load_data_fashion_mnist(batch_size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="初始化模型参数-1" class="level3">
 <h3 class="anchored" data-anchor-id="初始化模型参数-1">初始化模型参数</h3>
 <p>softmax回归的输出层是一个全连接层。因此，只需在Sequential中添加一个带有10个输出的全连接层。</p>
-<div id="f8f36a6a" class="cell" data-execution_count="175">
+<div id="f8f36a6a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PyTorch不会隐式地调整输入的形状。因此，</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 我们在线性层前定义了展平层（flatten），来调整网络输入的形状</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 通常第 0 维是批大小（batch_size），默认跳过，从第 1 维开始展平。</span></span>
@@ -430,7 +429,7 @@ b的估计误差： tensor([-8.7261e-05])</code></pre>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        nn.init.normal_(m.weight, std<span class="op">=</span><span class="fl">0.01</span>)</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>net.<span class="bu">apply</span>(init_weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="175">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>Sequential(
   (0): Flatten(start_dim=1, end_dim=-1)
   (1): Linear(in_features=784, out_features=10, bias=True)
@@ -457,7 +456,7 @@ b的估计误差： tensor([-8.7261e-05])</code></pre>
 \end{aligned}
 </span></p>
 <p>最后在交叉熵损失函数中传递未规范化的预测，并同时计算softmax及其对数</p>
-<div id="7885e102" class="cell" data-execution_count="176">
+<div id="7885e102" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""自动对模型的原始输出（logits，未归一化的分数）进行 LogSoftmax 处理，无需手动添加 Softmax 层。"""</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> nn.CrossEntropyLoss(reduction<span class="op">=</span><span class="st">'none'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -465,115 +464,117 @@ b的估计误差： tensor([-8.7261e-05])</code></pre>
 <section id="优化算法" class="level3">
 <h3 class="anchored" data-anchor-id="优化算法">优化算法</h3>
 <p>使用学习率为0.1的小批量随机梯度下降作为优化算法。</p>
-<div id="e54b503a" class="cell" data-execution_count="177">
+<div id="e54b503a" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> torch.optim.SGD(net.parameters(), lr<span class="op">=</span><span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="训练-1" class="level3">
 <h3 class="anchored" data-anchor-id="训练-1">训练</h3>
 <p>先定义绘图工具类</p>
-<div id="489d542c" class="cell" data-execution_count="178">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> display</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(y_hat, y):</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""计算预测正确的数量"""</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(y_hat.shape) <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> y_hat.shape[<span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">1</span>: <span class="co"># y_hat 为矩阵</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        y_hat <span class="op">=</span> y_hat.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cmp</span> <span class="op">=</span> y_hat.<span class="bu">type</span>(y.dtype) <span class="op">==</span> y</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">cmp</span>.<span class="bu">type</span>(y.dtype).<span class="bu">sum</span>())</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 先定义一个累加器工具</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Accumulator:</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""在n个变量上累加"""</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n):</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n <span class="co"># 定义长度为n的列表</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add(<span class="va">self</span>, <span class="op">*</span>args):</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> [a <span class="op">+</span> <span class="bu">float</span>(b) <span class="cf">for</span> a, b <span class="kw">in</span> <span class="bu">zip</span>(<span class="va">self</span>.data, args)] <span class="co"># 列表与输入值累加</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reset(<span class="va">self</span>):</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> <span class="bu">len</span>(<span class="va">self</span>.data)</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[idx] <span class="co"># 重写[]方法</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_accuracy(net, data_iter):</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""计算在指定数据集上模型的精度"""</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(net, torch.nn.Module):</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>        net.<span class="bu">eval</span>()  <span class="co"># 将模型设置为评估模式</span></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    metric <span class="op">=</span> Accumulator(<span class="dv">2</span>)  <span class="co"># 正确预测数、预测总数</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> X, y <span class="kw">in</span> data_iter:</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>            metric.add(accuracy(net(X), y), y.numel())</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> metric[<span class="dv">0</span>] <span class="op">/</span> metric[<span class="dv">1</span>]</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animator:</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""在动画中绘制数据"""</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, xlabel<span class="op">=</span><span class="va">None</span>, ylabel<span class="op">=</span><span class="va">None</span>, legend<span class="op">=</span><span class="va">None</span>, xlim<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>                 ylim<span class="op">=</span><span class="va">None</span>, xscale<span class="op">=</span><span class="st">'linear'</span>, yscale<span class="op">=</span><span class="st">'linear'</span>,</span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>                 fmts<span class="op">=</span>(<span class="st">'-'</span>, <span class="st">'m--'</span>, <span class="st">'g-.'</span>, <span class="st">'r:'</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>(<span class="fl">3.5</span>, <span class="fl">2.5</span>)):</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 创建图形和坐标轴</span></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fig, <span class="va">self</span>.axes <span class="op">=</span> plt.subplots(nrows, ncols, figsize<span class="op">=</span>figsize)</span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nrows <span class="op">*</span> ncols <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.axes <span class="op">=</span> [<span class="va">self</span>.axes]  <span class="co"># 统一为列表格式方便后续操作</span></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 坐标轴配置函数（原生替代d2l.set_axes）</span></span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> config_axes(ax):</span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>            ax.set_xlabel(xlabel)</span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>            ax.set_ylabel(ylabel)</span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> xlim: ax.set_xlim(xlim)</span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> ylim: ax.set_ylim(ylim)</span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>            ax.set_xscale(xscale)</span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>            ax.set_yscale(yscale)</span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> legend: ax.legend(legend)</span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>            ax.grid()</span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config_axes <span class="op">=</span> <span class="kw">lambda</span>: config_axes(<span class="va">self</span>.axes[<span class="dv">0</span>])  <span class="co"># 绑定配置函数</span></span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 初始化数据容器</span></span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.X, <span class="va">self</span>.Y, <span class="va">self</span>.fmts <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span>, fmts</span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add(<span class="va">self</span>, x, y):</span>
-<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 处理单值输入（兼容标量输入）</span></span>
-<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">hasattr</span>(y, <span class="st">"__len__"</span>):</span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> [y]</span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(y)</span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 处理x输入（兼容标量输入）</span></span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">hasattr</span>(x, <span class="st">"__len__"</span>):</span>
-<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> [x] <span class="op">*</span> n  <span class="co"># 所有y序列共享相同x值</span></span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 初始化数据存储列表</span></span>
-<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.X:</span>
-<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.X <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.Y:</span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.Y <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 添加数据点</span></span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, (a, b) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(x, y)):</span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> a <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> b <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.X[i].append(a)</span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.Y[i].append(b)</span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 清除当前图形并重绘</span></span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.axes[<span class="dv">0</span>].cla()</span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> x_data, y_data, fmt <span class="kw">in</span> <span class="bu">zip</span>(<span class="va">self</span>.X, <span class="va">self</span>.Y, <span class="va">self</span>.fmts):</span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.axes[<span class="dv">0</span>].plot(x_data, y_data, fmt)</span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 配置坐标轴</span></span>
-<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config_axes()</span>
-<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 动态显示图形（需在Jupyter中运行）</span></span>
-<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a>        display.display(<span class="va">self</span>.fig)</span>
-<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a>        display.clear_output(wait<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="489d542c" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">'svg'</span>  <span class="co"># 在 Jupyter 中设置矢量图显示</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> display</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> accuracy(y_hat, y):</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""计算预测正确的数量"""</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(y_hat.shape) <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> y_hat.shape[<span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">1</span>: <span class="co"># y_hat 为矩阵</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        y_hat <span class="op">=</span> y_hat.argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cmp</span> <span class="op">=</span> y_hat.<span class="bu">type</span>(y.dtype) <span class="op">==</span> y</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(<span class="bu">cmp</span>.<span class="bu">type</span>(y.dtype).<span class="bu">sum</span>())</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 先定义一个累加器工具</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Accumulator:</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""在n个变量上累加"""</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n):</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> n <span class="co"># 定义长度为n的列表</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add(<span class="va">self</span>, <span class="op">*</span>args):</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> [a <span class="op">+</span> <span class="bu">float</span>(b) <span class="cf">for</span> a, b <span class="kw">in</span> <span class="bu">zip</span>(<span class="va">self</span>.data, args)] <span class="co"># 列表与输入值累加</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reset(<span class="va">self</span>):</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> [<span class="fl">0.0</span>] <span class="op">*</span> <span class="bu">len</span>(<span class="va">self</span>.data)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[idx] <span class="co"># 重写[]方法</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_accuracy(net, data_iter):</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""计算在指定数据集上模型的精度"""</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(net, torch.nn.Module):</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>        net.<span class="bu">eval</span>()  <span class="co"># 将模型设置为评估模式</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    metric <span class="op">=</span> Accumulator(<span class="dv">2</span>)  <span class="co"># 正确预测数、预测总数</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> X, y <span class="kw">in</span> data_iter:</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>            metric.add(accuracy(net(X), y), y.numel())</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> metric[<span class="dv">0</span>] <span class="op">/</span> metric[<span class="dv">1</span>]</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animator:</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""在动画中绘制数据"""</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, xlabel<span class="op">=</span><span class="va">None</span>, ylabel<span class="op">=</span><span class="va">None</span>, legend<span class="op">=</span><span class="va">None</span>, xlim<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>                 ylim<span class="op">=</span><span class="va">None</span>, xscale<span class="op">=</span><span class="st">'linear'</span>, yscale<span class="op">=</span><span class="st">'linear'</span>,</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>                 fmts<span class="op">=</span>(<span class="st">'-'</span>, <span class="st">'m--'</span>, <span class="st">'g-.'</span>, <span class="st">'r:'</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>                 figsize<span class="op">=</span>(<span class="fl">3.5</span>, <span class="fl">2.5</span>)):</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 创建图形和坐标轴</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fig, <span class="va">self</span>.axes <span class="op">=</span> plt.subplots(nrows, ncols, figsize<span class="op">=</span>figsize)</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nrows <span class="op">*</span> ncols <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.axes <span class="op">=</span> [<span class="va">self</span>.axes]  <span class="co"># 统一为列表格式方便后续操作</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 坐标轴配置函数（原生替代d2l.set_axes）</span></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> config_axes(ax):</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>            ax.set_xlabel(xlabel)</span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>            ax.set_ylabel(ylabel)</span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> xlim: ax.set_xlim(xlim)</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> ylim: ax.set_ylim(ylim)</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>            ax.set_xscale(xscale)</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>            ax.set_yscale(yscale)</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> legend: ax.legend(legend)</span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>            ax.grid()</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config_axes <span class="op">=</span> <span class="kw">lambda</span>: config_axes(<span class="va">self</span>.axes[<span class="dv">0</span>])  <span class="co"># 绑定配置函数</span></span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 初始化数据容器</span></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.X, <span class="va">self</span>.Y, <span class="va">self</span>.fmts <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span>, fmts</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add(<span class="va">self</span>, x, y):</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 处理单值输入（兼容标量输入）</span></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">hasattr</span>(y, <span class="st">"__len__"</span>):</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> [y]</span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(y)</span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 处理x输入（兼容标量输入）</span></span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">hasattr</span>(x, <span class="st">"__len__"</span>):</span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> [x] <span class="op">*</span> n  <span class="co"># 所有y序列共享相同x值</span></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 初始化数据存储列表</span></span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.X:</span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.X <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.Y:</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.Y <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 添加数据点</span></span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, (a, b) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(x, y)):</span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> a <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> b <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.X[i].append(a)</span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.Y[i].append(b)</span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 清除当前图形并重绘</span></span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.axes[<span class="dv">0</span>].cla()</span>
+<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> x_data, y_data, fmt <span class="kw">in</span> <span class="bu">zip</span>(<span class="va">self</span>.X, <span class="va">self</span>.Y, <span class="va">self</span>.fmts):</span>
+<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.axes[<span class="dv">0</span>].plot(x_data, y_data, fmt)</span>
+<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 配置坐标轴</span></span>
+<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config_axes()</span>
+<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 动态显示图形（需在Jupyter中运行）</span></span>
+<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a>        display.display(<span class="va">self</span>.fig)</span>
+<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a>        display.clear_output(wait<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>再定义训练函数</p>
-<div id="b6d1e3aa" class="cell" data-execution_count="179">
+<div id="b6d1e3aa" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_epoch(net, train_iter, loss, updater):  <span class="co">#@save</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""训练模型一个迭代周期"""</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 将模型设置为训练模式</span></span>
@@ -612,13 +613,13 @@ b的估计误差： tensor([-8.7261e-05])</code></pre>
 <span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> test_acc <span class="op">&lt;=</span> <span class="dv">1</span> <span class="kw">and</span> test_acc <span class="op">&gt;</span> <span class="fl">0.7</span>, test_acc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>开始训练</p>
-<div id="e3395cc9" class="cell" data-execution_count="180">
+<div id="e3395cc9" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>num_epoch <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>train(net, train_iter, test_iter, loss, num_epoch, trainer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-15-output-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
