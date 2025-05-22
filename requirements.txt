@@ -3,4 +3,4 @@ numpy==1.23.5
 matplotlib==3.7.2
 torch==2.7.0
 torchvision==0.22.0
-ipython==9.2.0
+ipython==8.12.3
