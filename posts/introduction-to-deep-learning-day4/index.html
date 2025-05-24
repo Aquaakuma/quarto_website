@@ -8,7 +8,7 @@
 
 <meta name="author" content="TUT">
 <meta name="dcterms.date" content="2025-05-24">
-<meta name="description" content="学习感知机的构造。">
+<meta name="description" content="感知机接受多个信号，输出一个信号（1或0）。也可以称为人工神经元。">
 
 <title>深度学习入门(day4) - 感知机 – Aquaakuma</title>
 <style>
@@ -193,7 +193,7 @@ window.Quarto = {
       <h1 class="title">深度学习入门(day4) - 感知机</h1>
                   <div>
         <div class="description">
-          学习感知机的构造。
+          感知机接受多个信号，输出一个信号（1或0）。也可以称为人工神经元。
         </div>
       </div>
                 </div>
@@ -258,8 +258,11 @@ window.Quarto = {
 <section id="感知机是什么" class="level2">
 <h2 class="anchored" data-anchor-id="感知机是什么">感知机是什么</h2>
 <p>感知机接受多个信号，输出一个信号（1或0）。也可以称为人工神经元，以下是一个接收两个信号的感知机的例子。<span class="math inline">x_1</span> 、 <span class="math inline">x_2</span> 是输入信号，<span class="math inline">y</span> 是输出信号，<span class="math inline">w_1</span>、<span class="math inline">w_2</span> 是权重。输入信号传入神经元的时候会被分别乘以权重（<span class="math inline">x_1w_1 、 x_2w_2</span>）。只有传过来信号的总和大于某个阈值 <span class="math inline">\theta</span> 时，神经元才会被激活。</p>
-<div style="text-align:center">
-<p><img src="./assets/4-1.drawio.svg" alt="两个输入的感知机" style="width: 20%;"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./assets/4-1.drawio.svg" class="img-fluid figure-img"></p>
+<figcaption>感知机</figcaption>
+</figure>
 </div>
 <p>用数学公式表示就是</p>
 <p><span class="math display">
@@ -480,8 +483,11 @@ y=\left\{
 </tbody>
 </table>
 <p>在单层感知机中是无法实现异或门的，可以通过画图来解释其中原因。在下图中，直线下方表示输出为0的空间，上方表示输出为1的空间，四个点代表异或门的输入，要如何设定参数才能使直线 <span class="math inline">x_1w_1 + x_2w_2 + b</span> 正好把四个点正确的分开？</p>
-<div style="text-align:center">
-<p><img src="./assets/4-2.svg" alt="两个输入的感知机" style="width: 40%;"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./assets/4-2.svg" class="img-fluid figure-img"></p>
+<figcaption>两个输入的感知机</figcaption>
+</figure>
 </div>
 <p>无论如何用一条直线是做不到的。</p>
 </section>
@@ -489,8 +495,11 @@ y=\left\{
 <section id="多层感知机" class="level2">
 <h2 class="anchored" data-anchor-id="多层感知机">多层感知机</h2>
 <p>在电路中，通过与门、或门、非门之间的组合，是可以实现异或门的：</p>
-<div style="text-align:center">
-<p><img src="./assets/4-3.drawio.svg" alt="两个输入的感知机" style="width: 40%;"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./assets/4-3.drawio.svg" class="img-fluid figure-img"></p>
+<figcaption>两个输入的感知机</figcaption>
+</figure>
 </div>
 <p>真值表表示就是</p>
 <table class="caption-top table">
@@ -555,8 +564,11 @@ y=\left\{
 </div>
 </div>
 <p>与门、或门是单层感知机，异或门是2层感知机，叠加了多层的感知机也称为多层感知机。</p>
-<div style="text-align:center">
-<p><img src="./assets/4-4.drawio.svg" alt="两个输入的感知机" style="width: 40%;"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./assets/4-4.drawio.svg" class="img-fluid figure-img"></p>
+<figcaption>2层感知机</figcaption>
+</figure>
 </div>
 </section>
 <section id="总结" class="level2">
@@ -567,7 +579,7 @@ y=\left\{
 </section>
 </section>
 
-</main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
