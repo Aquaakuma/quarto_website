@@ -240,10 +240,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#异或门" id="toc-异或门" class="nav-link" data-scroll-target="#异或门">异或门</a></li>
   </ul></li>
-  <li><a href="#多层感知机" id="toc-多层感知机" class="nav-link" data-scroll-target="#多层感知机">多层感知机</a>
-  <ul class="collapse">
-  <li><a href="#多个门电路的组合" id="toc-多个门电路的组合" class="nav-link" data-scroll-target="#多个门电路的组合">多个门电路的组合</a></li>
-  </ul></li>
+  <li><a href="#多层感知机" id="toc-多层感知机" class="nav-link" data-scroll-target="#多层感知机">多层感知机</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">总结</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -312,7 +310,7 @@ y=\left\{
 </table>
 <p>当 <span class="math inline">(w_1, w_2, \theta)=(0.5, 0.5, 0.7)</span> 时，设定这样的参数后，感知机满足与门的条件。当然，满足条件的参数选择方法可以有无数种。</p>
 <p>用python代码表示：</p>
-<div id="eabf67f8" class="cell" data-execution_count="141">
+<div id="eabf67f8" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> AND(x1, x2):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    w1, w2, theta <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    tmp <span class="op">=</span> x1 <span class="op">*</span> w1 <span class="op">+</span> x2 <span class="op">*</span> w2</span>
@@ -411,7 +409,7 @@ y=\left\{
 \right.
 </span></p>
 <p>至此，与门、与非门、或门可以用相同的构造的感知机表示，只有权重和偏置的值不同。</p>
-<div id="2338ef93" class="cell" data-execution_count="142">
+<div id="2338ef93" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logic_gate(x1, x2, logic_gate):</span>
@@ -490,8 +488,6 @@ y=\left\{
 </section>
 <section id="多层感知机" class="level2">
 <h2 class="anchored" data-anchor-id="多层感知机">多层感知机</h2>
-<section id="多个门电路的组合" class="level3">
-<h3 class="anchored" data-anchor-id="多个门电路的组合">多个门电路的组合</h3>
 <p>在电路中，通过与门、或门、非门之间的组合，是可以实现异或门的：XOR(A,B) = (A AND NOT B) OR (NOT A AND B)</p>
 <div style="text-align:center">
 <p><img src="./assets/4-3.drawio.svg" alt="两个输入的感知机" style="width: 40%;"></p>
@@ -538,9 +534,36 @@ y=\left\{
 </tr>
 </tbody>
 </table>
-
-
+<p>下面试着用python实现异或门</p>
+<div id="4acfd2cd" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> XOR(x1, x2):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    s1 <span class="op">=</span> logic_gate(x1, x2, NAND)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    s2 <span class="op">=</span> logic_gate(x1, x2, OR)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> logic_gate(s1, s2, AND)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> [(<span class="dv">0</span>, <span class="dv">0</span>), (<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">0</span>), (<span class="dv">1</span>, <span class="dv">1</span>)]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">input</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'输入：</span><span class="sc">{</span>i[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">    </span><span class="sc">{</span>i[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> </span><span class="op">\</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        异或门输出：</span><span class="sc">{</span>XOR(<span class="op">*</span>i)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>输入：0    0         异或门输出：0
+输入：0    1         异或门输出：1
+输入：1    0         异或门输出：1
+输入：1    1         异或门输出：0</code></pre>
+</div>
+</div>
+<p>与门、或门是单层感知机，异或门是2层感知机，叠加了多层的感知机也称为多层感知机。</p>
+<div style="text-align:center">
+<p><img src="./assets/4-4.drawio.svg" alt="两个输入的感知机" style="width: 40%;"></p>
+</div>
 </section>
+<section id="总结" class="level2">
+<h2 class="anchored" data-anchor-id="总结">总结</h2>
+<p>理论上多层感知机可以像逻辑电路一样表示计算机。</p>
+
+
 </section>
 </section>
 
