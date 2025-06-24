@@ -19,3 +19,6 @@ format:
     css: styles.css
     html-math-method:
       method: katex
+
+execute:
+  freeze: auto
