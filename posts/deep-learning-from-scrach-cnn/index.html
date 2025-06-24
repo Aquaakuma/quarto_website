@@ -230,16 +230,17 @@ window.Quarto = {
   <ul>
   <li><a href="#深度学习入门-卷积神经网络cnn" id="toc-深度学习入门-卷积神经网络cnn" class="nav-link active" data-scroll-target="#深度学习入门-卷积神经网络cnn"><span class="header-section-number">1</span> 深度学习入门-卷积神经网络（CNN）</a>
   <ul class="collapse">
-  <li><a href="#神经网络层的实现" id="toc-神经网络层的实现" class="nav-link" data-scroll-target="#神经网络层的实现"><span class="header-section-number">1.1</span> 2. 神经网络层的实现</a>
+  <li><a href="#数据集准备" id="toc-数据集准备" class="nav-link" data-scroll-target="#数据集准备"><span class="header-section-number">1.1</span> 1. 数据集准备</a></li>
+  <li><a href="#神经网络层的实现" id="toc-神经网络层的实现" class="nav-link" data-scroll-target="#神经网络层的实现"><span class="header-section-number">1.2</span> 2. 神经网络层的实现</a>
   <ul class="collapse">
-  <li><a href="#卷积层" id="toc-卷积层" class="nav-link" data-scroll-target="#卷积层"><span class="header-section-number">1.1.1</span> 2.1 卷积层</a></li>
-  <li><a href="#relu-层" id="toc-relu-层" class="nav-link" data-scroll-target="#relu-层"><span class="header-section-number">1.1.2</span> 2.2 Relu 层</a></li>
-  <li><a href="#池化层" id="toc-池化层" class="nav-link" data-scroll-target="#池化层"><span class="header-section-number">1.1.3</span> 2.3 池化层</a></li>
-  <li><a href="#全连接层" id="toc-全连接层" class="nav-link" data-scroll-target="#全连接层"><span class="header-section-number">1.1.4</span> 2.4 全连接层</a></li>
-  <li><a href="#softmax-with-loss-层" id="toc-softmax-with-loss-层" class="nav-link" data-scroll-target="#softmax-with-loss-层"><span class="header-section-number">1.1.5</span> 2.5 Softmax-with-Loss 层</a></li>
+  <li><a href="#卷积层" id="toc-卷积层" class="nav-link" data-scroll-target="#卷积层"><span class="header-section-number">1.2.1</span> 2.1 卷积层</a></li>
+  <li><a href="#relu-层" id="toc-relu-层" class="nav-link" data-scroll-target="#relu-层"><span class="header-section-number">1.2.2</span> 2.2 Relu 层</a></li>
+  <li><a href="#池化层" id="toc-池化层" class="nav-link" data-scroll-target="#池化层"><span class="header-section-number">1.2.3</span> 2.3 池化层</a></li>
+  <li><a href="#全连接层" id="toc-全连接层" class="nav-link" data-scroll-target="#全连接层"><span class="header-section-number">1.2.4</span> 2.4 全连接层</a></li>
+  <li><a href="#softmax-with-loss-层" id="toc-softmax-with-loss-层" class="nav-link" data-scroll-target="#softmax-with-loss-层"><span class="header-section-number">1.2.5</span> 2.5 Softmax-with-Loss 层</a></li>
   </ul></li>
-  <li><a href="#cnn-的实现" id="toc-cnn-的实现" class="nav-link" data-scroll-target="#cnn-的实现"><span class="header-section-number">1.2</span> 3. CNN 的实现</a></li>
-  <li><a href="#开始训练" id="toc-开始训练" class="nav-link" data-scroll-target="#开始训练"><span class="header-section-number">1.3</span> 开始训练</a></li>
+  <li><a href="#cnn-的实现" id="toc-cnn-的实现" class="nav-link" data-scroll-target="#cnn-的实现"><span class="header-section-number">1.3</span> 3. CNN 的实现</a></li>
+  <li><a href="#开始训练" id="toc-开始训练" class="nav-link" data-scroll-target="#开始训练"><span class="header-section-number">1.4</span> 开始训练</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -253,8 +254,11 @@ window.Quarto = {
 
 <section id="深度学习入门-卷积神经网络cnn" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 深度学习入门-卷积神经网络（CNN）</h1>
-<p>本文围绕从零开始实现一个卷积神经网络（CNN）来进行手写数字识别的任务。 ## 1. 数据集准备 这里使用 Mnist 数据集，它包含了 60000 张训练图片和 10000 张测试图片，每张图片都是 28x28 像素的灰度图像。使用现成的 <code>load_mnist</code> 代码加载数据集。</p>
-<div id="cd5d48a3" class="cell" data-execution_count="2">
+<p>本文围绕从零开始实现一个卷积神经网络（CNN）来进行手写数字识别的任务。</p>
+<section id="数据集准备" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="数据集准备"><span class="header-section-number">1.1</span> 1. 数据集准备</h2>
+<p>这里使用 Mnist 数据集，它包含了 60000 张训练图片和 10000 张测试图片，每张图片都是 28x28 像素的灰度图像。使用现成的 <code>load_mnist</code> 代码加载数据集。</p>
+<div id="cd5d48a3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os.path</span>
@@ -376,14 +380,15 @@ window.Quarto = {
 <span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (dataset[<span class="st">'train_img'</span>], dataset[<span class="st">'train_label'</span>]), (dataset[<span class="st">'test_img'</span>], dataset[<span class="st">'test_label'</span>]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="神经网络层的实现" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="神经网络层的实现"><span class="header-section-number">1.1</span> 2. 神经网络层的实现</h2>
+</section>
+<section id="神经网络层的实现" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="神经网络层的实现"><span class="header-section-number">1.2</span> 2. 神经网络层的实现</h2>
 <p>在本节中，我们将实现卷积层、池化层和全连接层。每个层都将包含前向传播和反向传播的实现。</p>
-<section id="卷积层" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="卷积层"><span class="header-section-number">1.1.1</span> 2.1 卷积层</h3>
+<section id="卷积层" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="卷积层"><span class="header-section-number">1.2.1</span> 2.1 卷积层</h3>
 <p>在全连接层（Affine层）中，需要将输入数据拉平为1维数据。图像是3维形状，应该含有重要的空间信息，因为全连接层会忽略形状，将全部的输入数据作为相同的神经元处理，所以无法利用形状相关的信息。而卷积层可以保持形状不变，当输入数据是图像时，卷积层会以3维数据的形式接收输入数据，并同样以3维数据的形式输出至下一层。</p>
-<section id="卷积运算" class="level4" data-number="1.1.1.1">
-<h4 data-number="1.1.1.1" class="anchored" data-anchor-id="卷积运算"><span class="header-section-number">1.1.1.1</span> 2.1.1 卷积运算</h4>
+<section id="卷积运算" class="level4" data-number="1.2.1.1">
+<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="卷积运算"><span class="header-section-number">1.2.1.1</span> 2.1.1 卷积运算</h4>
 <p>卷积运算相当于图像处理的“滤波器运算”。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -407,8 +412,8 @@ window.Quarto = {
 </div>
 <p>偏执通常只有1个值，应用于每个输出数据。</p>
 </section>
-<section id="填充" class="level4" data-number="1.1.1.2">
-<h4 data-number="1.1.1.2" class="anchored" data-anchor-id="填充"><span class="header-section-number">1.1.1.2</span> 2.1.2 填充</h4>
+<section id="填充" class="level4" data-number="1.2.1.2">
+<h4 data-number="1.2.1.2" class="anchored" data-anchor-id="填充"><span class="header-section-number">1.2.1.2</span> 2.1.2 填充</h4>
 <p>填充（Padding）是指在输入数据的边缘添加额外的像素，以控制输出数据的大小。填充可以防止卷积操作导致输出数据尺寸过小。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -418,8 +423,8 @@ window.Quarto = {
 </div>
 <p>如图4所示，通过填充，大小为(4, 4)的输入数据变成了(6, 6)，滤波器大小为(3, 3)，步长为1，填充为1。输出大小变成了(4, 4)。</p>
 </section>
-<section id="步长" class="level4" data-number="1.1.1.3">
-<h4 data-number="1.1.1.3" class="anchored" data-anchor-id="步长"><span class="header-section-number">1.1.1.3</span> 2.1.3 步长</h4>
+<section id="步长" class="level4" data-number="1.2.1.3">
+<h4 data-number="1.2.1.3" class="anchored" data-anchor-id="步长"><span class="header-section-number">1.2.1.3</span> 2.1.3 步长</h4>
 <p>步长（Stride）是指滤波器在输入数据上滑动的步幅。步长可以控制输出数据的大小。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -436,8 +441,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </span></p>
 <p>注意，如果输出大小不是整数，则需要采取报错等对策。根据框架的不同，有时会使用向下取整的方式来处理。</p>
 </section>
-<section id="维数据的卷积" class="level4" data-number="1.1.1.4">
-<h4 data-number="1.1.1.4" class="anchored" data-anchor-id="维数据的卷积"><span class="header-section-number">1.1.1.4</span> 2.1.4 3维数据的卷积</h4>
+<section id="维数据的卷积" class="level4" data-number="1.2.1.4">
+<h4 data-number="1.2.1.4" class="anchored" data-anchor-id="维数据的卷积"><span class="header-section-number">1.2.1.4</span> 2.1.4 3维数据的卷积</h4>
 <p>之前的卷积运算的例子都是以高、长两个方向的2维形状为对象，但是，图象是三维数据，除了高、长两个方向外，还需要处理通道方向。图6是3维卷积运算的例子，他在纵深方向上有三个通道，对应的滤波器也增加到了三个。运算时，按通道进行输入数据和滤波器的卷积运算，并将结果相加，从而得到2维的输出。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -447,8 +452,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 <p>需要注意的是，滤波器的通道数只能设定为和输入数据的通道数相同的值。</p>
 </section>
-<section id="结合方块思考" class="level4" data-number="1.1.1.5">
-<h4 data-number="1.1.1.5" class="anchored" data-anchor-id="结合方块思考"><span class="header-section-number">1.1.1.5</span> 2.1.5 结合方块思考</h4>
+<section id="结合方块思考" class="level4" data-number="1.2.1.5">
+<h4 data-number="1.2.1.5" class="anchored" data-anchor-id="结合方块思考"><span class="header-section-number">1.2.1.5</span> 2.1.5 结合方块思考</h4>
 <p>将数据和滤波器结合长方体的方块来考虑，可以更好地理解卷积运算。图7展示了一个3维数据的卷积运算，其中输入数据和滤波器都被视为方块。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -471,8 +476,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </figure>
 </div>
 </section>
-<section id="卷积层的实现" class="level4" data-number="1.1.1.6">
-<h4 data-number="1.1.1.6" class="anchored" data-anchor-id="卷积层的实现"><span class="header-section-number">1.1.1.6</span> 2.1.6 卷积层的实现</h4>
+<section id="卷积层的实现" class="level4" data-number="1.2.1.6">
+<h4 data-number="1.2.1.6" class="anchored" data-anchor-id="卷积层的实现"><span class="header-section-number">1.2.1.6</span> 2.1.6 卷积层的实现</h4>
 <p>前面讲到CNN中各层传递的数据是一个4维数据，为了更高效的处理数据，会用到 <code>im2col</code> 和 <code>col2im</code> 函数。<code>im2col</code> 函数将输入数据转换为列向量的形式，<code>col2im</code> 函数则将列向量转换回原来的形状。</p>
 <p>假设有一个输入是 (1, 3, 9, 9)，滤波器是 (1, 3, 3, 3)，步长为3，填充为0。通过计算得出 out_h=3，out_w=3。其输入转换成col数组的运算过程如图10所示。</p>
 <div class="quarto-figure quarto-figure-center">
@@ -489,7 +494,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </figure>
 </div>
 <p>图11中，二维数组的一行就是对应于的一个卷积运算单元。同理，<code>col2im</code>的过程就是<code>im2col</code>的逆过程，这里不再解释，python代码如下：</p>
-<div id="754d43f8" class="cell" data-execution_count="3">
+<div id="754d43f8" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> im2col(input_data, filter_h, filter_w, stride<span class="op">=</span><span class="dv">1</span>, pad<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -558,7 +563,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <figcaption>图12：卷积运算的im2col处理</figcaption>
 </figure>
 </div>
-<div id="b5fe99b9" class="cell" data-execution_count="4">
+<div id="b5fe99b9" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Convolution:</span>
@@ -610,10 +615,10 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 </section>
 </section>
-<section id="relu-层" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="relu-层"><span class="header-section-number">1.1.2</span> 2.2 Relu 层</h3>
+<section id="relu-层" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="relu-层"><span class="header-section-number">1.2.2</span> 2.2 Relu 层</h3>
 <p>Rele 层是一个常用的激活函数层，它将输入中的负值置为零，正值保持不变。假设输入的 <code>x</code> 是一个numpy数组，Rele 层的前向传播和反向传播可以实现如下：</p>
-<div id="099eb815" class="cell" data-execution_count="5">
+<div id="099eb815" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Relu:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mask <span class="op">=</span> <span class="va">None</span></span>
@@ -633,10 +638,10 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 <p>由计算图推导可知，如果正向传播时的输入值小于等于0，则反向传播的值为零，否则为正向传播的输入值。</p>
 </section>
-<section id="池化层" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="池化层"><span class="header-section-number">1.1.3</span> 2.3 池化层</h3>
-<section id="池化运算" class="level4" data-number="1.1.3.1">
-<h4 data-number="1.1.3.1" class="anchored" data-anchor-id="池化运算"><span class="header-section-number">1.1.3.1</span> 2.3.1 池化运算</h4>
+<section id="池化层" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="池化层"><span class="header-section-number">1.2.3</span> 2.3 池化层</h3>
+<section id="池化运算" class="level4" data-number="1.2.3.1">
+<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="池化运算"><span class="header-section-number">1.2.3.1</span> 2.3.1 池化运算</h4>
 <p>池化是缩小高、长方向上的空间的运算。如图11所示，池化层通过对输入数据进行下采样来减少数据的维度。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -647,8 +652,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <p>在池化层中，通常会使用最大池化（Max Pooling）或平均池化（Average Pooling）。最大池化是取池化区域内的最大值，而平均池化是取池化区域内的平均值。另外，一般来说，池化层的步长和池化区域的大小相同。</p>
 <p><strong>池化层的特征</strong> 池化层具有以下特征： 1. <strong>没有要学习的参数</strong>：池化层和卷积层不同，池化层没有要学习的参数，他只是从目标区域中取最大值（或者平均值）。 2. <strong>通道数不发生变化</strong>：经过池化运算之后，输入数据和输出数据的通道数不会发生变化。 3. <strong>对微小的位置变化具有稳定性</strong>：输入位置发生微小偏差时，池化层仍然会返回相同的结果。</p>
 </section>
-<section id="池化层的实现" class="level4" data-number="1.1.3.2">
-<h4 data-number="1.1.3.2" class="anchored" data-anchor-id="池化层的实现"><span class="header-section-number">1.1.3.2</span> 2.3.2 池化层的实现</h4>
+<section id="池化层的实现" class="level4" data-number="1.2.3.2">
+<h4 data-number="1.2.3.2" class="anchored" data-anchor-id="池化层的实现"><span class="header-section-number">1.2.3.2</span> 2.3.2 池化层的实现</h4>
 <p>池化层与卷积层相同，都使用<code>im2col</code>展开输入数据。不过，池化的情况下，在通道方向上是独立的，这一点和卷积层不同。具体地讲，如图12所示，池化的应用区域按通道单独展开。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -657,7 +662,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </figure>
 </div>
 <p>像这样展开之后，只需要对展开的矩阵求个行的最大值，并转换为合适的形状即可。上面就是池化层的 forward 流程。Python的代码实现如下：</p>
-<div id="a3218fd9" class="cell" data-execution_count="6">
+<div id="a3218fd9" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pooling:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, pool_h, pool_w, stride<span class="op">=</span><span class="dv">1</span>, pad<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pool_h <span class="op">=</span> pool_h</span>
@@ -700,8 +705,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 </section>
 </section>
-<section id="全连接层" class="level3" data-number="1.1.4">
-<h3 data-number="1.1.4" class="anchored" data-anchor-id="全连接层"><span class="header-section-number">1.1.4</span> 2.4 全连接层</h3>
+<section id="全连接层" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="全连接层"><span class="header-section-number">1.2.4</span> 2.4 全连接层</h3>
 <p>Affine 层是一个全连接层，它将输入的特征图展平并与权重矩阵相乘。我们先给出计算图</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -715,7 +720,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 \frac{\partial L}{\partial W} &amp;= X^T \cdot \frac{\partial L}{\partial Y}
 \end{aligned}
 </span></p>
-<div id="020e3799" class="cell" data-execution_count="7">
+<div id="020e3799" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Affine:</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, W, b):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.W <span class="op">=</span>W</span>
@@ -747,8 +752,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 <p>正向传播时，偏执被加到 <span class="math inline">X \cdot W</span> 的各个数据上，因此，反向传播时，各个数据的反向传播的值需要汇总为偏执的元素。即 <span class="math display">\frac{\partial L}{\partial B}=\frac{\partial L}{\partial Y} \text{的第一个轴（第0轴）方向上的和}</span></p>
 </section>
-<section id="softmax-with-loss-层" class="level3" data-number="1.1.5">
-<h3 data-number="1.1.5" class="anchored" data-anchor-id="softmax-with-loss-层"><span class="header-section-number">1.1.5</span> 2.5 Softmax-with-Loss 层</h3>
+<section id="softmax-with-loss-层" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="softmax-with-loss-层"><span class="header-section-number">1.2.5</span> 2.5 Softmax-with-Loss 层</h3>
 <p>Softmax 和 Loss 层结合在一起可以使得反向传播的计算更高效，得到“漂亮”的推导公式。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -757,7 +762,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </figure>
 </div>
 <p>具体推导过程这里不详细展开。</p>
-<div id="86117d48" class="cell" data-execution_count="8">
+<div id="86117d48" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> softmax(x):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    exp_x <span class="op">=</span> np.exp(x <span class="op">-</span> np.<span class="bu">max</span>(x, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))  <span class="co"># 防止溢出</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> exp_x <span class="op">/</span> np.<span class="bu">sum</span>(exp_x, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
@@ -797,8 +802,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 </section>
 </section>
-<section id="cnn-的实现" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="cnn-的实现"><span class="header-section-number">1.2</span> 3. CNN 的实现</h2>
+<section id="cnn-的实现" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="cnn-的实现"><span class="header-section-number">1.3</span> 3. CNN 的实现</h2>
 <p>之前已经完成了卷积层、Relu层、池化层和全连接层，接下来组装这些层，搭建手写数字识别的CNN。神经网络的结构如图15所示</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -807,7 +812,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </figure>
 </div>
 <p>我们将它实现为名为<code>SimpleConvNet</code>的类。</p>
-<div id="95127caa" class="cell" data-execution_count="9">
+<div id="95127caa" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> OrderedDict</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -941,11 +946,11 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.layers[key].b <span class="op">=</span> <span class="va">self</span>.params[<span class="st">'b'</span> <span class="op">+</span> <span class="bu">str</span>(i<span class="op">+</span><span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="开始训练" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="开始训练"><span class="header-section-number">1.3</span> 开始训练</h2>
+<section id="开始训练" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="开始训练"><span class="header-section-number">1.4</span> 开始训练</h2>
 <p>训练过程的代码基本相同，可以将训练流程整合成一个类，方便调用。</p>
 <p>先定义优化算法</p>
-<div id="cc30ee9e" class="cell" data-execution_count="10">
+<div id="cc30ee9e" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Adam:</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Adam (http://arxiv.org/abs/1412.6980v8)"""</span></span>
@@ -981,7 +986,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>            <span class="co">#params[key] += self.lr * unbias_m / (np.sqrt(unbisa_b) + 1e-7)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>定义训练器</p>
-<div id="d85c63ac" class="cell" data-execution_count="11">
+<div id="d85c63ac" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trainer:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""进行神经网络的训练的类</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
@@ -1054,7 +1059,7 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"test acc:"</span> <span class="op">+</span> <span class="bu">str</span>(test_acc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>开始训练</p>
-<div id="a2b46760" class="cell" data-execution_count="12">
+<div id="a2b46760" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">'svg'</span>  <span class="co"># 在 Jupyter 中设置矢量图显示</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1075,537 +1080,26 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>trainer <span class="op">=</span> Trainer(network, x_train, t_train, x_test, t_test,</span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                  epochs<span class="op">=</span>max_epochs, mini_batch_size<span class="op">=</span><span class="dv">100</span>,</span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>                  optimizer<span class="op">=</span><span class="st">'Adam'</span>, optimizer_param<span class="op">=</span>{<span class="st">'lr'</span>: <span class="fl">0.001</span>},</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                  evaluate_sample_num_per_epoch<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>trainer.train()</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存参数</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>network.save_params(<span class="st">"params.pkl"</span>)</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Saved Network Parameters!"</span>)</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制图形</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>markers <span class="op">=</span> {<span class="st">'train'</span>: <span class="st">'o'</span>, <span class="st">'test'</span>: <span class="st">'s'</span>}</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(max_epochs)</span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>plt.plot(x, trainer.train_acc_list, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train'</span>, markevery<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>plt.plot(x, trainer.test_acc_list, marker<span class="op">=</span><span class="st">'s'</span>, label<span class="op">=</span><span class="st">'test'</span>, markevery<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"epochs"</span>)</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"accuracy"</span>)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                  evaluate_sample_num_per_epoch<span class="op">=</span><span class="dv">1000</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                  verbose<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>trainer.train()</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存参数</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>network.save_params(<span class="st">"params.pkl"</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Saved Network Parameters!"</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制图形</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>markers <span class="op">=</span> {<span class="st">'train'</span>: <span class="st">'o'</span>, <span class="st">'test'</span>: <span class="st">'s'</span>}</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(max_epochs)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>plt.plot(x, trainer.train_acc_list, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train'</span>, markevery<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>plt.plot(x, trainer.test_acc_list, marker<span class="op">=</span><span class="st">'s'</span>, label<span class="op">=</span><span class="st">'test'</span>, markevery<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"epochs"</span>)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"accuracy"</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>train loss:2.2993233123992303
-=== epoch:1, train acc:0.17, test acc:0.137 ===
-train loss:2.298051406536639
-train loss:2.2945294701313257
-train loss:2.284771892908237
-train loss:2.2813310874551878
-train loss:2.268831232980478
-train loss:2.2628597700740487
-train loss:2.239410142316585
-train loss:2.1985486261954863
-train loss:2.1750198496213557
-train loss:2.15653442726547
-train loss:2.0824741793082246
-train loss:2.1075284608494194
-train loss:2.065785280218253
-train loss:1.984113015367737
-train loss:1.894449865022823
-train loss:1.8615112124207978
-train loss:1.7586016085072345
-train loss:1.7047854843516674
-train loss:1.6243844836022132
-train loss:1.4887606583687378
-train loss:1.4327460718910328
-train loss:1.3693697749666776
-train loss:1.3252180554028021
-train loss:1.3117446175404408
-train loss:1.1798776447107677
-train loss:1.1303709888765032
-train loss:0.9359889084052492
-train loss:0.9051652504476809
-train loss:0.8979297546746381
-train loss:0.9117984230653157
-train loss:0.8530731425813319
-train loss:0.780247888824317
-train loss:0.9073236114474619
-train loss:0.7389102754075944
-train loss:0.7189497130841355
-train loss:0.7157263818575741
-train loss:0.7292861203000419
-train loss:0.766503668958341
-train loss:0.6706282224329541
-train loss:0.6543866337386546
-train loss:0.7650083469754317
-train loss:0.5442374164026306
-train loss:0.646690736029863
-train loss:0.6467109494065865
-train loss:0.6116186590905458
-train loss:0.4833288020683271
-train loss:0.5722184615013947
-train loss:0.6956719569947615
-train loss:0.6271061001053563
-train loss:0.43934530442750125
-=== epoch:2, train acc:0.803, test acc:0.803 ===
-train loss:0.5421429319992981
-train loss:0.582686900605537
-train loss:0.45024696882358983
-train loss:0.6120433921594749
-train loss:0.3749594145828933
-train loss:0.38680031763626077
-train loss:0.6884769535234266
-train loss:0.45992452353640034
-train loss:0.5650642993275807
-train loss:0.5109198054441245
-train loss:0.6860739541785279
-train loss:0.3778274876336246
-train loss:0.5285210714568114
-train loss:0.3501839821526599
-train loss:0.32331314804158373
-train loss:0.35703240228812
-train loss:0.6350809942913812
-train loss:0.3584903100263206
-train loss:0.6128995685016033
-train loss:0.4014245088678085
-train loss:0.3281589531418003
-train loss:0.40147568943378126
-train loss:0.45572751174817433
-train loss:0.38588405960698957
-train loss:0.5381755564490429
-train loss:0.3062609046626077
-train loss:0.43275030397856606
-train loss:0.42674468518630043
-train loss:0.28165333135782145
-train loss:0.49863793404886986
-train loss:0.35205199921800767
-train loss:0.4420429053527152
-train loss:0.3802967352895483
-train loss:0.4803640767358186
-train loss:0.36659542676568
-train loss:0.47032921909109343
-train loss:0.3307465923477735
-train loss:0.33396976712487436
-train loss:0.3178618459717112
-train loss:0.4445770332902869
-train loss:0.3325074438211958
-train loss:0.40464424715984043
-train loss:0.28256899936366464
-train loss:0.23653125160850533
-train loss:0.31384526803768176
-train loss:0.3054796082934627
-train loss:0.33067022042060024
-train loss:0.35221709841741655
-train loss:0.23619015590257206
-train loss:0.36630505077690223
-=== epoch:3, train acc:0.878, test acc:0.862 ===
-train loss:0.3072890038034444
-train loss:0.2853209731935703
-train loss:0.3703181268741409
-train loss:0.2123961963353763
-train loss:0.3254400876887978
-train loss:0.321501988922644
-train loss:0.5279413079927824
-train loss:0.2985339802962787
-train loss:0.4360762971736847
-train loss:0.3588755040460769
-train loss:0.4534475879377149
-train loss:0.40527847138469153
-train loss:0.6293684866887118
-train loss:0.4158934643989957
-train loss:0.3743323032457031
-train loss:0.496219701654936
-train loss:0.2318289630905251
-train loss:0.3362051622149648
-train loss:0.4080910533211538
-train loss:0.22016640663315237
-train loss:0.23424007155498455
-train loss:0.3014143607483944
-train loss:0.2082626196807389
-train loss:0.3013353363115434
-train loss:0.23574740106905284
-train loss:0.22955880812998075
-train loss:0.2931440277270484
-train loss:0.18271582566592798
-train loss:0.38751714154974337
-train loss:0.31764203210982567
-train loss:0.4300720145336178
-train loss:0.45346747273295035
-train loss:0.208538340215911
-train loss:0.2853038396450145
-train loss:0.2952243954227819
-train loss:0.2731152930780338
-train loss:0.2560474970992363
-train loss:0.31081360491135424
-train loss:0.273919724957917
-train loss:0.26872888074672074
-train loss:0.42981754014182477
-train loss:0.413039644101713
-train loss:0.30936930122179157
-train loss:0.21586798707213553
-train loss:0.22594321711492835
-train loss:0.35871108772261495
-train loss:0.2768928101682123
-train loss:0.2021024501051464
-train loss:0.2529573532174624
-train loss:0.23322795821678144
-=== epoch:4, train acc:0.904, test acc:0.88 ===
-train loss:0.22616469648771007
-train loss:0.34839171844006045
-train loss:0.1975000800740565
-train loss:0.27279018406512984
-train loss:0.3509874927367534
-train loss:0.3067757485064357
-train loss:0.22879796254143225
-train loss:0.2582004777251723
-train loss:0.14823795264719147
-train loss:0.4179973429909448
-train loss:0.14325745233863815
-train loss:0.32246303393695414
-train loss:0.45054615214914895
-train loss:0.26835955073963347
-train loss:0.28898638668839105
-train loss:0.18069689934929392
-train loss:0.24775119760240952
-train loss:0.2170127446392193
-train loss:0.28658135064882356
-train loss:0.2997839470126872
-train loss:0.4154721061116146
-train loss:0.4251289604334492
-train loss:0.28505077745729196
-train loss:0.22438111351531376
-train loss:0.337390437208918
-train loss:0.3193087047414781
-train loss:0.36840096185841714
-train loss:0.205377323428433
-train loss:0.29454423849842576
-train loss:0.2629834436357297
-train loss:0.12685582131328915
-train loss:0.2162671370728722
-train loss:0.19228099952640001
-train loss:0.20380678974817915
-train loss:0.28844269408834217
-train loss:0.2475997011441411
-train loss:0.24744972999412654
-train loss:0.381930535614523
-train loss:0.19383532175731258
-train loss:0.2804024205394989
-train loss:0.2722849239632914
-train loss:0.20530187277299106
-train loss:0.29064740951410845
-train loss:0.12818765886626074
-train loss:0.20360216401253284
-train loss:0.206162221352942
-train loss:0.2656653976035492
-train loss:0.3491278497621291
-train loss:0.2643267889703639
-train loss:0.3406122315581756
-=== epoch:5, train acc:0.916, test acc:0.898 ===
-train loss:0.31766150658602843
-train loss:0.37351126101602944
-train loss:0.1709833444680261
-train loss:0.23023852414050855
-train loss:0.19409047460326181
-train loss:0.14908257103595512
-train loss:0.2248214057207151
-train loss:0.2102999243506283
-train loss:0.27172858177309633
-train loss:0.1829277264186582
-train loss:0.2470894247028754
-train loss:0.1645611781878024
-train loss:0.17449436188242548
-train loss:0.2808642714000858
-train loss:0.38919806493401177
-train loss:0.19751238945155072
-train loss:0.3808005539436744
-train loss:0.2495673177310557
-train loss:0.1778498250758175
-train loss:0.2847944115132006
-train loss:0.181628419429369
-train loss:0.15571496002859989
-train loss:0.23436715770745475
-train loss:0.2180833900474568
-train loss:0.1512352161585383
-train loss:0.14292545334542675
-train loss:0.2779439662424268
-train loss:0.13740219611860596
-train loss:0.09484123502523634
-train loss:0.15202435463411343
-train loss:0.28203379000023177
-train loss:0.14511135756753385
-train loss:0.17325132002391397
-train loss:0.11846050244523697
-train loss:0.1470747703048898
-train loss:0.08825684575203839
-train loss:0.3170887520975665
-train loss:0.1259306726497246
-train loss:0.19946761834162222
-train loss:0.2339113779790302
-train loss:0.10920019662614296
-train loss:0.24542847815428936
-train loss:0.2328707659949758
-train loss:0.180854926249885
-train loss:0.13071361077202823
-train loss:0.23137246930881908
-train loss:0.34150471780435027
-train loss:0.15472086861378423
-train loss:0.17249920933054055
-train loss:0.20158349447305607
-=== epoch:6, train acc:0.923, test acc:0.912 ===
-train loss:0.17435920609421707
-train loss:0.18632293569519645
-train loss:0.17258938729404327
-train loss:0.1724852822479695
-train loss:0.2806279299554692
-train loss:0.1867959958444672
-train loss:0.22015871724376898
-train loss:0.264372443418892
-train loss:0.2535511858639634
-train loss:0.13457128288056716
-train loss:0.19554476373600166
-train loss:0.1262267381322478
-train loss:0.13513189636859718
-train loss:0.19233721611363708
-train loss:0.11380528056261577
-train loss:0.22213367394915554
-train loss:0.23388511602132497
-train loss:0.15462343155280492
-train loss:0.15194866528434928
-train loss:0.13172996245005977
-train loss:0.0694920087382748
-train loss:0.2846361526726141
-train loss:0.16400299674770583
-train loss:0.13552997347894097
-train loss:0.14351470469645608
-train loss:0.1070492457614424
-train loss:0.15550975275609166
-train loss:0.1247714148429201
-train loss:0.07201382686184972
-train loss:0.20373589189970592
-train loss:0.11002856894029095
-train loss:0.1913882069638971
-train loss:0.18797965677306563
-train loss:0.1447309967711009
-train loss:0.18000080500352353
-train loss:0.18719179080817816
-train loss:0.1301316379985612
-train loss:0.19402099816880314
-train loss:0.4656969275725995
-train loss:0.10598173149568828
-train loss:0.17724791838775045
-train loss:0.3144020903335516
-train loss:0.3151548076376727
-train loss:0.14587767986770456
-train loss:0.09142687496523445
-train loss:0.24123284512106644
-train loss:0.18252856765558265
-train loss:0.0964489717612485
-train loss:0.1638347418376568
-train loss:0.07355423731395003
-=== epoch:7, train acc:0.941, test acc:0.921 ===
-train loss:0.39114512781684047
-train loss:0.18574068385967224
-train loss:0.2396832734222846
-train loss:0.15269440813184607
-train loss:0.10162733711729732
-train loss:0.20282812452440013
-train loss:0.18116312701905038
-train loss:0.11051300335064809
-train loss:0.12764428606291514
-train loss:0.1132083814422157
-train loss:0.3516635450767648
-train loss:0.11703618681180787
-train loss:0.16618229400417792
-train loss:0.1757049204090141
-train loss:0.22434198369842348
-train loss:0.25969912036467524
-train loss:0.18645060581950562
-train loss:0.15168046998950058
-train loss:0.16818246713076895
-train loss:0.16775176543840187
-train loss:0.13985643215185922
-train loss:0.17957712601141004
-train loss:0.14794512281764913
-train loss:0.18596735724615285
-train loss:0.09696984728316345
-train loss:0.10056501343534231
-train loss:0.17007655787032186
-train loss:0.16455267583074348
-train loss:0.11147819016781113
-train loss:0.2040638687207783
-train loss:0.16474307005251654
-train loss:0.1035005122990595
-train loss:0.1851032087761237
-train loss:0.14722688970549971
-train loss:0.08784782082714225
-train loss:0.19316117446101116
-train loss:0.22151138444101234
-train loss:0.12699564637189584
-train loss:0.09543943217928573
-train loss:0.0781842472849177
-train loss:0.09795676890819195
-train loss:0.17138394990359937
-train loss:0.11858770904076982
-train loss:0.1343873533514615
-train loss:0.05350931136996054
-train loss:0.08627816537722419
-train loss:0.13835655250901913
-train loss:0.1571237843152624
-train loss:0.14849050995646274
-train loss:0.19339022611221643
-=== epoch:8, train acc:0.951, test acc:0.925 ===
-train loss:0.15664234277634803
-train loss:0.21256919017477693
-train loss:0.12575834120091497
-train loss:0.08454367853131481
-train loss:0.1727655218699136
-train loss:0.22147749740763253
-train loss:0.1473078205066079
-train loss:0.17938776935642203
-train loss:0.09225384313131846
-train loss:0.1484435660355912
-train loss:0.13234510435931854
-train loss:0.2107198696462416
-train loss:0.20301685796484187
-train loss:0.07434816974237814
-train loss:0.07119837111955211
-train loss:0.07608640310821208
-train loss:0.06321964230637196
-train loss:0.10035088370831298
-train loss:0.09591066175208507
-train loss:0.21617298634658144
-train loss:0.16063150002068305
-train loss:0.2446804441771928
-train loss:0.1290432439534047
-train loss:0.05756418820418771
-train loss:0.09673280233655786
-train loss:0.08198184116130024
-train loss:0.11375172045177394
-train loss:0.03883274914017018
-train loss:0.0898578031670973
-train loss:0.1122280102069019
-train loss:0.1974533839001029
-train loss:0.08849850481732688
-train loss:0.07316267295202271
-train loss:0.11794255871191699
-train loss:0.19163570491244747
-train loss:0.16761280006604903
-train loss:0.10018750980068986
-train loss:0.11292496897587806
-train loss:0.06892827503419169
-train loss:0.18066910501266456
-train loss:0.17181639792118925
-train loss:0.12060354132836176
-train loss:0.0902395972955375
-train loss:0.17228845996699313
-train loss:0.11945636386621813
-train loss:0.1482838659167559
-train loss:0.14587583714858426
-train loss:0.09681083569505139
-train loss:0.10244110637416613
-train loss:0.08908512172528366
-=== epoch:9, train acc:0.96, test acc:0.933 ===
-train loss:0.142987803733278
-train loss:0.11132195423062446
-train loss:0.1243505073764494
-train loss:0.08027212253102857
-train loss:0.0946247098069664
-train loss:0.11244017788194599
-train loss:0.06693613826040566
-train loss:0.06758029943909437
-train loss:0.1884785031541919
-train loss:0.13701172043706167
-train loss:0.08933681752550945
-train loss:0.07810736291520869
-train loss:0.1597015493587758
-train loss:0.08788118154954389
-train loss:0.14257294738930837
-train loss:0.08501881768380581
-train loss:0.3132723287350194
-train loss:0.07877595013040031
-train loss:0.0707589597476979
-train loss:0.07460552341250606
-train loss:0.16802309469440502
-train loss:0.15825731800532813
-train loss:0.1561584618397619
-train loss:0.06572817748826072
-train loss:0.19788679037450493
-train loss:0.09852378089783935
-train loss:0.14481946128989423
-train loss:0.2329081464361625
-train loss:0.12729983881552268
-train loss:0.040921052814578876
-train loss:0.07957195423520375
-train loss:0.11030109936058732
-train loss:0.09684464574160273
-train loss:0.12545259205706658
-train loss:0.14520475781742506
-train loss:0.06317704780321531
-train loss:0.1743682097070703
-train loss:0.143060153292166
-train loss:0.11999992811689608
-train loss:0.09136156622223815
-train loss:0.1259137920571532
-train loss:0.13438645946177005
-train loss:0.15626491943001303
-train loss:0.10230937434055139
-train loss:0.1556476989997181
-train loss:0.10356615704254148
-train loss:0.06427580496329573
-train loss:0.2149584669259314
-train loss:0.07863513117089126
-train loss:0.10904331209756694
-=== epoch:10, train acc:0.962, test acc:0.936 ===
-train loss:0.053365268483054826
-train loss:0.15200942246809743
-train loss:0.07827332546869138
-train loss:0.06211754336044036
-train loss:0.10086281365408058
-train loss:0.068890545684123
-train loss:0.08571469463156395
-train loss:0.09540060562532279
-train loss:0.11630338782143207
-train loss:0.06781551227622794
-train loss:0.09391967894036721
-train loss:0.11581863106229323
-train loss:0.06361719016646822
-train loss:0.048513896188000706
-train loss:0.08693286601224794
-train loss:0.10254690986351492
-train loss:0.1495879234755672
-train loss:0.09514331509645857
-train loss:0.14623002882991462
-train loss:0.15264355057640633
-train loss:0.1541105846973888
-train loss:0.10054687944434575
-train loss:0.1384551681582971
-train loss:0.07893763574116966
-train loss:0.10782519637791436
-train loss:0.07597328239312273
-train loss:0.10321659889496787
-train loss:0.06616808162538752
-train loss:0.05276566786720314
-train loss:0.08153214151772498
-train loss:0.1253288595659553
-train loss:0.10294032495761049
-train loss:0.0779923394671156
-train loss:0.13616983189923487
-train loss:0.14092797935091772
-train loss:0.08683949175141059
-train loss:0.0335050814454191
-train loss:0.11299400587694938
-train loss:0.03685198792302141
-train loss:0.13471500298634312
-train loss:0.030420203822731886
-train loss:0.13752815373386762
-train loss:0.2401609972854293
-train loss:0.052532075336710164
-train loss:0.07563932862944332
-train loss:0.10086296121517722
-train loss:0.0695921429197045
-train loss:0.0375726520439078
-train loss:0.09758703294661211
-=============== Final Test Accuracy ===============
-test acc:0.938
-Saved Network Parameters!</code></pre>
+<pre><code>Saved Network Parameters!</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1616,7 +1110,7 @@ Saved Network Parameters!</code></pre>
 </div>
 </div>
 <p>可视化权重变化</p>
-<div id="aff67fab" class="cell" data-execution_count="13">
+<div id="aff67fab" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> filter_show(filters, nx<span class="op">=</span><span class="dv">8</span>, margin<span class="op">=</span><span class="dv">3</span>, scale<span class="op">=</span><span class="dv">10</span>):</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
