@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-127e197c7d94ba6b610937be0ee90e56.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -216,7 +216,7 @@ window.Quarto = {
   <div>
     <div class="abstract">
       <div class="block-title">Abstract</div>
-      摘要内容
+      本文围绕从零开始实现一个卷积神经网络（CNN）来进行手写数字识别的任务。
     </div>
   </div>
   
@@ -228,19 +228,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#深度学习入门-卷积神经网络cnn" id="toc-深度学习入门-卷积神经网络cnn" class="nav-link active" data-scroll-target="#深度学习入门-卷积神经网络cnn"><span class="header-section-number">1</span> 深度学习入门-卷积神经网络（CNN）</a>
+  <li><a href="#深度学习入门-卷积神经网络cnn" id="toc-深度学习入门-卷积神经网络cnn" class="nav-link active" data-scroll-target="#深度学习入门-卷积神经网络cnn">深度学习入门-卷积神经网络（CNN）</a>
   <ul class="collapse">
-  <li><a href="#数据集准备" id="toc-数据集准备" class="nav-link" data-scroll-target="#数据集准备"><span class="header-section-number">1.1</span> 1. 数据集准备</a></li>
-  <li><a href="#神经网络层的实现" id="toc-神经网络层的实现" class="nav-link" data-scroll-target="#神经网络层的实现"><span class="header-section-number">1.2</span> 2. 神经网络层的实现</a>
+  <li><a href="#数据集准备" id="toc-数据集准备" class="nav-link" data-scroll-target="#数据集准备">1. 数据集准备</a></li>
+  <li><a href="#神经网络层的实现" id="toc-神经网络层的实现" class="nav-link" data-scroll-target="#神经网络层的实现">2. 神经网络层的实现</a>
   <ul class="collapse">
-  <li><a href="#卷积层" id="toc-卷积层" class="nav-link" data-scroll-target="#卷积层"><span class="header-section-number">1.2.1</span> 2.1 卷积层</a></li>
-  <li><a href="#relu-层" id="toc-relu-层" class="nav-link" data-scroll-target="#relu-层"><span class="header-section-number">1.2.2</span> 2.2 Relu 层</a></li>
-  <li><a href="#池化层" id="toc-池化层" class="nav-link" data-scroll-target="#池化层"><span class="header-section-number">1.2.3</span> 2.3 池化层</a></li>
-  <li><a href="#全连接层" id="toc-全连接层" class="nav-link" data-scroll-target="#全连接层"><span class="header-section-number">1.2.4</span> 2.4 全连接层</a></li>
-  <li><a href="#softmax-with-loss-层" id="toc-softmax-with-loss-层" class="nav-link" data-scroll-target="#softmax-with-loss-层"><span class="header-section-number">1.2.5</span> 2.5 Softmax-with-Loss 层</a></li>
+  <li><a href="#卷积层" id="toc-卷积层" class="nav-link" data-scroll-target="#卷积层">2.1 卷积层</a></li>
+  <li><a href="#relu-层" id="toc-relu-层" class="nav-link" data-scroll-target="#relu-层">2.2 Relu 层</a></li>
+  <li><a href="#池化层" id="toc-池化层" class="nav-link" data-scroll-target="#池化层">2.3 池化层</a></li>
+  <li><a href="#全连接层" id="toc-全连接层" class="nav-link" data-scroll-target="#全连接层">2.4 全连接层</a></li>
+  <li><a href="#softmax-with-loss-层" id="toc-softmax-with-loss-层" class="nav-link" data-scroll-target="#softmax-with-loss-层">2.5 Softmax-with-Loss 层</a></li>
   </ul></li>
-  <li><a href="#cnn-的实现" id="toc-cnn-的实现" class="nav-link" data-scroll-target="#cnn-的实现"><span class="header-section-number">1.3</span> 3. CNN 的实现</a></li>
-  <li><a href="#开始训练" id="toc-开始训练" class="nav-link" data-scroll-target="#开始训练"><span class="header-section-number">1.4</span> 开始训练</a></li>
+  <li><a href="#cnn-的实现" id="toc-cnn-的实现" class="nav-link" data-scroll-target="#cnn-的实现">3. CNN 的实现</a></li>
+  <li><a href="#开始训练" id="toc-开始训练" class="nav-link" data-scroll-target="#开始训练">4. 开始训练</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -252,11 +252,11 @@ window.Quarto = {
 
 
 
-<section id="深度学习入门-卷积神经网络cnn" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> 深度学习入门-卷积神经网络（CNN）</h1>
+<section id="深度学习入门-卷积神经网络cnn" class="level1">
+<h1>深度学习入门-卷积神经网络（CNN）</h1>
 <p>本文围绕从零开始实现一个卷积神经网络（CNN）来进行手写数字识别的任务。</p>
-<section id="数据集准备" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="数据集准备"><span class="header-section-number">1.1</span> 1. 数据集准备</h2>
+<section id="数据集准备" class="level2">
+<h2 class="anchored" data-anchor-id="数据集准备">1. 数据集准备</h2>
 <p>这里使用 Mnist 数据集，它包含了 60000 张训练图片和 10000 张测试图片，每张图片都是 28x28 像素的灰度图像。使用现成的 <code>load_mnist</code> 代码加载数据集。</p>
 <div id="cd5d48a3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
@@ -381,14 +381,14 @@ window.Quarto = {
 <span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (dataset[<span class="st">'train_img'</span>], dataset[<span class="st">'train_label'</span>]), (dataset[<span class="st">'test_img'</span>], dataset[<span class="st">'test_label'</span>]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="神经网络层的实现" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="神经网络层的实现"><span class="header-section-number">1.2</span> 2. 神经网络层的实现</h2>
+<section id="神经网络层的实现" class="level2">
+<h2 class="anchored" data-anchor-id="神经网络层的实现">2. 神经网络层的实现</h2>
 <p>在本节中，我们将实现卷积层、池化层和全连接层。每个层都将包含前向传播和反向传播的实现。</p>
-<section id="卷积层" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="卷积层"><span class="header-section-number">1.2.1</span> 2.1 卷积层</h3>
+<section id="卷积层" class="level3">
+<h3 class="anchored" data-anchor-id="卷积层">2.1 卷积层</h3>
 <p>在全连接层（Affine层）中，需要将输入数据拉平为1维数据。图像是3维形状，应该含有重要的空间信息，因为全连接层会忽略形状，将全部的输入数据作为相同的神经元处理，所以无法利用形状相关的信息。而卷积层可以保持形状不变，当输入数据是图像时，卷积层会以3维数据的形式接收输入数据，并同样以3维数据的形式输出至下一层。</p>
-<section id="卷积运算" class="level4" data-number="1.2.1.1">
-<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="卷积运算"><span class="header-section-number">1.2.1.1</span> 2.1.1 卷积运算</h4>
+<section id="卷积运算" class="level4">
+<h4 class="anchored" data-anchor-id="卷积运算">2.1.1 卷积运算</h4>
 <p>卷积运算相当于图像处理的“滤波器运算”。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -412,8 +412,8 @@ window.Quarto = {
 </div>
 <p>偏执通常只有1个值，应用于每个输出数据。</p>
 </section>
-<section id="填充" class="level4" data-number="1.2.1.2">
-<h4 data-number="1.2.1.2" class="anchored" data-anchor-id="填充"><span class="header-section-number">1.2.1.2</span> 2.1.2 填充</h4>
+<section id="填充" class="level4">
+<h4 class="anchored" data-anchor-id="填充">2.1.2 填充</h4>
 <p>填充（Padding）是指在输入数据的边缘添加额外的像素，以控制输出数据的大小。填充可以防止卷积操作导致输出数据尺寸过小。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -423,8 +423,8 @@ window.Quarto = {
 </div>
 <p>如图4所示，通过填充，大小为(4, 4)的输入数据变成了(6, 6)，滤波器大小为(3, 3)，步长为1，填充为1。输出大小变成了(4, 4)。</p>
 </section>
-<section id="步长" class="level4" data-number="1.2.1.3">
-<h4 data-number="1.2.1.3" class="anchored" data-anchor-id="步长"><span class="header-section-number">1.2.1.3</span> 2.1.3 步长</h4>
+<section id="步长" class="level4">
+<h4 class="anchored" data-anchor-id="步长">2.1.3 步长</h4>
 <p>步长（Stride）是指滤波器在输入数据上滑动的步幅。步长可以控制输出数据的大小。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -441,8 +441,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </span></p>
 <p>注意，如果输出大小不是整数，则需要采取报错等对策。根据框架的不同，有时会使用向下取整的方式来处理。</p>
 </section>
-<section id="维数据的卷积" class="level4" data-number="1.2.1.4">
-<h4 data-number="1.2.1.4" class="anchored" data-anchor-id="维数据的卷积"><span class="header-section-number">1.2.1.4</span> 2.1.4 3维数据的卷积</h4>
+<section id="维数据的卷积" class="level4">
+<h4 class="anchored" data-anchor-id="维数据的卷积">2.1.4 3维数据的卷积</h4>
 <p>之前的卷积运算的例子都是以高、长两个方向的2维形状为对象，但是，图象是三维数据，除了高、长两个方向外，还需要处理通道方向。图6是3维卷积运算的例子，他在纵深方向上有三个通道，对应的滤波器也增加到了三个。运算时，按通道进行输入数据和滤波器的卷积运算，并将结果相加，从而得到2维的输出。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -452,8 +452,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 <p>需要注意的是，滤波器的通道数只能设定为和输入数据的通道数相同的值。</p>
 </section>
-<section id="结合方块思考" class="level4" data-number="1.2.1.5">
-<h4 data-number="1.2.1.5" class="anchored" data-anchor-id="结合方块思考"><span class="header-section-number">1.2.1.5</span> 2.1.5 结合方块思考</h4>
+<section id="结合方块思考" class="level4">
+<h4 class="anchored" data-anchor-id="结合方块思考">2.1.5 结合方块思考</h4>
 <p>将数据和滤波器结合长方体的方块来考虑，可以更好地理解卷积运算。图7展示了一个3维数据的卷积运算，其中输入数据和滤波器都被视为方块。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -476,8 +476,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </figure>
 </div>
 </section>
-<section id="卷积层的实现" class="level4" data-number="1.2.1.6">
-<h4 data-number="1.2.1.6" class="anchored" data-anchor-id="卷积层的实现"><span class="header-section-number">1.2.1.6</span> 2.1.6 卷积层的实现</h4>
+<section id="卷积层的实现" class="level4">
+<h4 class="anchored" data-anchor-id="卷积层的实现">2.1.6 卷积层的实现</h4>
 <p>前面讲到CNN中各层传递的数据是一个4维数据，为了更高效的处理数据，会用到 <code>im2col</code> 和 <code>col2im</code> 函数。<code>im2col</code> 函数将输入数据转换为列向量的形式，<code>col2im</code> 函数则将列向量转换回原来的形状。</p>
 <p>假设有一个输入是 (1, 3, 9, 9)，滤波器是 (1, 3, 3, 3)，步长为3，填充为0。通过计算得出 out_h=3，out_w=3。其输入转换成col数组的运算过程如图10所示。</p>
 <div class="quarto-figure quarto-figure-center">
@@ -615,8 +615,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 </section>
 </section>
-<section id="relu-层" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="relu-层"><span class="header-section-number">1.2.2</span> 2.2 Relu 层</h3>
+<section id="relu-层" class="level3">
+<h3 class="anchored" data-anchor-id="relu-层">2.2 Relu 层</h3>
 <p>Rele 层是一个常用的激活函数层，它将输入中的负值置为零，正值保持不变。假设输入的 <code>x</code> 是一个numpy数组，Rele 层的前向传播和反向传播可以实现如下：</p>
 <div id="099eb815" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Relu:</span>
@@ -638,10 +638,10 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 <p>由计算图推导可知，如果正向传播时的输入值小于等于0，则反向传播的值为零，否则为正向传播的输入值。</p>
 </section>
-<section id="池化层" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="池化层"><span class="header-section-number">1.2.3</span> 2.3 池化层</h3>
-<section id="池化运算" class="level4" data-number="1.2.3.1">
-<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="池化运算"><span class="header-section-number">1.2.3.1</span> 2.3.1 池化运算</h4>
+<section id="池化层" class="level3">
+<h3 class="anchored" data-anchor-id="池化层">2.3 池化层</h3>
+<section id="池化运算" class="level4">
+<h4 class="anchored" data-anchor-id="池化运算">2.3.1 池化运算</h4>
 <p>池化是缩小高、长方向上的空间的运算。如图11所示，池化层通过对输入数据进行下采样来减少数据的维度。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -652,8 +652,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <p>在池化层中，通常会使用最大池化（Max Pooling）或平均池化（Average Pooling）。最大池化是取池化区域内的最大值，而平均池化是取池化区域内的平均值。另外，一般来说，池化层的步长和池化区域的大小相同。</p>
 <p><strong>池化层的特征</strong> 池化层具有以下特征： 1. <strong>没有要学习的参数</strong>：池化层和卷积层不同，池化层没有要学习的参数，他只是从目标区域中取最大值（或者平均值）。 2. <strong>通道数不发生变化</strong>：经过池化运算之后，输入数据和输出数据的通道数不会发生变化。 3. <strong>对微小的位置变化具有稳定性</strong>：输入位置发生微小偏差时，池化层仍然会返回相同的结果。</p>
 </section>
-<section id="池化层的实现" class="level4" data-number="1.2.3.2">
-<h4 data-number="1.2.3.2" class="anchored" data-anchor-id="池化层的实现"><span class="header-section-number">1.2.3.2</span> 2.3.2 池化层的实现</h4>
+<section id="池化层的实现" class="level4">
+<h4 class="anchored" data-anchor-id="池化层的实现">2.3.2 池化层的实现</h4>
 <p>池化层与卷积层相同，都使用<code>im2col</code>展开输入数据。不过，池化的情况下，在通道方向上是独立的，这一点和卷积层不同。具体地讲，如图12所示，池化的应用区域按通道单独展开。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -705,8 +705,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 </section>
 </section>
-<section id="全连接层" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="全连接层"><span class="header-section-number">1.2.4</span> 2.4 全连接层</h3>
+<section id="全连接层" class="level3">
+<h3 class="anchored" data-anchor-id="全连接层">2.4 全连接层</h3>
 <p>Affine 层是一个全连接层，它将输入的特征图展平并与权重矩阵相乘。我们先给出计算图</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -752,8 +752,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 <p>正向传播时，偏执被加到 <span class="math inline">X \cdot W</span> 的各个数据上，因此，反向传播时，各个数据的反向传播的值需要汇总为偏执的元素。即 <span class="math display">\frac{\partial L}{\partial B}=\frac{\partial L}{\partial Y} \text{的第一个轴（第0轴）方向上的和}</span></p>
 </section>
-<section id="softmax-with-loss-层" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="softmax-with-loss-层"><span class="header-section-number">1.2.5</span> 2.5 Softmax-with-Loss 层</h3>
+<section id="softmax-with-loss-层" class="level3">
+<h3 class="anchored" data-anchor-id="softmax-with-loss-层">2.5 Softmax-with-Loss 层</h3>
 <p>Softmax 和 Loss 层结合在一起可以使得反向传播的计算更高效，得到“漂亮”的推导公式。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -802,8 +802,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 </div>
 </section>
 </section>
-<section id="cnn-的实现" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="cnn-的实现"><span class="header-section-number">1.3</span> 3. CNN 的实现</h2>
+<section id="cnn-的实现" class="level2">
+<h2 class="anchored" data-anchor-id="cnn-的实现">3. CNN 的实现</h2>
 <p>之前已经完成了卷积层、Relu层、池化层和全连接层，接下来组装这些层，搭建手写数字识别的CNN。神经网络的结构如图15所示</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -946,8 +946,8 @@ OW &amp;= \frac{W + 2P - FW}{S} + 1
 <span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.layers[key].b <span class="op">=</span> <span class="va">self</span>.params[<span class="st">'b'</span> <span class="op">+</span> <span class="bu">str</span>(i<span class="op">+</span><span class="dv">1</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="开始训练" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="开始训练"><span class="header-section-number">1.4</span> 开始训练</h2>
+<section id="开始训练" class="level2">
+<h2 class="anchored" data-anchor-id="开始训练">4. 开始训练</h2>
 <p>训练过程的代码基本相同，可以将训练流程整合成一个类，方便调用。</p>
 <p>先定义优化算法</p>
 <div id="cc30ee9e" class="cell" data-execution_count="22">
