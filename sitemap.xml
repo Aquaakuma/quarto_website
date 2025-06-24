@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day2/index.html</loc>
-    <lastmod>2025-05-24T06:22:49.650Z</lastmod>
+    <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
+    <lastmod>2025-05-21T01:41:57.800Z</lastmod>
   </url>
   <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day4/index.html</loc>
-    <lastmod>2025-05-24T06:22:49.947Z</lastmod>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/deep-learning-from-scrach-cnn/index.html</loc>
+    <lastmod>2025-06-24T03:17:41.122Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/index.html</loc>
-    <lastmod>2025-05-24T06:22:49.321Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
-    <lastmod>2025-05-24T06:22:49.320Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day1/index.html</loc>
-    <lastmod>2025-05-24T06:22:49.322Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/introduction-to-deep-learning-day3/index.html</loc>
-    <lastmod>2025-05-24T06:22:49.946Z</lastmod>
+    <lastmod>2025-05-22T04:32:09.819Z</lastmod>
   </url>
 </urlset>
