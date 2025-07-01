@@ -1,2 +1,15 @@
 /.quarto/
 /_site/
+/.conda/
+/.vscode/
+# 忽略所有名为 data 的文件夹（任何层级）
+**/data/
+**/dataset/
+
+# 忽略所有名为 logs 的文件夹（任何层级）
+**/logs/
+
+# 忽略所有 .pth 文件（任何位置）
+*.pth
+# 忽略所有 .pkl 文件（任何位置）
+*.pkl
