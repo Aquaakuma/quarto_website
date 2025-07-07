@@ -2,7 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/pytorch_inplementation_of_AlexNet/index.html",
+      "/posts/pytorch_implementation_of_VGG/index.html",
+      "/posts/pytorch_implementation_of_AlexNet/index.html",
       "/posts/pytorch_implementation_of_LeNet/index.html",
       "/posts/deep_learning_from_scrach_CNN/index.html"
     ]

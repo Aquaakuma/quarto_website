@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
-    <lastmod>2025-07-03T05:39:40.828Z</lastmod>
+    <lastmod>2025-07-07T04:07:07.068Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/posts/deep_learning_from_scrach_CNN/index.html</loc>
-    <lastmod>2025-07-03T05:39:40.845Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_inplementation_of_AlexNet/index.html</loc>
-    <lastmod>2025-07-03T05:39:40.848Z</lastmod>
+    <lastmod>2025-07-07T04:07:07.079Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_LeNet/index.html</loc>
-    <lastmod>2025-07-03T05:39:40.848Z</lastmod>
+    <lastmod>2025-07-07T04:07:07.083Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_AlexNet/index.html</loc>
+    <lastmod>2025-07-07T04:07:07.081Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_VGG/index.html</loc>
+    <lastmod>2025-07-07T04:07:07.084Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/index.html</loc>
-    <lastmod>2025-07-03T05:39:40.828Z</lastmod>
+    <lastmod>2025-07-07T04:07:07.068Z</lastmod>
   </url>
 </urlset>

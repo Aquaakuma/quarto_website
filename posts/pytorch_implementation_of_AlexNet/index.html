@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="TUT">
+<meta name="dcterms.date" content="2025-07-03">
 
-<title>导入CIFAR-10数据集 – Aquaakuma</title>
+<title>卷积神经网络AlexNet – Aquaakuma</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,7 +152,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -187,23 +189,55 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">导入CIFAR-10数据集</h1>
+      <h1 class="title">卷积神经网络AlexNet</h1>
                       </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>TUT </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 3, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      通过使用PyTorch实现AlexNet神经网络
+    </div>
+  </div>
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#卷积神经网络alexnet" id="toc-卷积神经网络alexnet" class="nav-link active" data-scroll-target="#卷积神经网络alexnet">卷积神经网络AlexNet</a>
+  <ul class="collapse">
+  <li><a href="#alexnet神经网络" id="toc-alexnet神经网络" class="nav-link" data-scroll-target="#alexnet神经网络">AlexNet神经网络</a></li>
+  <li><a href="#导入cifar-10数据集" id="toc-导入cifar-10数据集" class="nav-link" data-scroll-target="#导入cifar-10数据集">导入CIFAR-10数据集</a></li>
+  <li><a href="#定义alennet模型" id="toc-定义alennet模型" class="nav-link" data-scroll-target="#定义alennet模型">定义AlenNet模型</a></li>
+  <li><a href="#开始训练" id="toc-开始训练" class="nav-link" data-scroll-target="#开始训练">开始训练</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -211,6 +245,22 @@ window.Quarto = {
 
 
 
+<section id="卷积神经网络alexnet" class="level1">
+<h1>卷积神经网络AlexNet</h1>
+<section id="alexnet神经网络" class="level2">
+<h2 class="anchored" data-anchor-id="alexnet神经网络">AlexNet神经网络</h2>
+<p>AlexNet和LeNet的设计理念非常相似，但也存在显著差异。</p>
+<ul>
+<li><p>AlexNet比相对较小的LeNet5要深得多。AlexNet由八层组成：五个卷积层、两个全连接隐藏层和一个全连接输出层。</p></li>
+<li><p>AlexNet使用ReLU而不是sigmoid作为其激活函数。</p></li>
+</ul>
+<p>下面是LeNet与AlexNet对比图。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./assets/alexnet_2.svg" class="img-fluid figure-img"></p>
+<figcaption>LeNet与AlexNet对比图</figcaption>
+</figure>
+</div>
 <div id="2ed44b27" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
@@ -220,6 +270,9 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="导入cifar-10数据集" class="level2">
+<h2 class="anchored" data-anchor-id="导入cifar-10数据集">导入CIFAR-10数据集</h2>
 <p>batch size设置为256加快训练速度，并且做了图像增广处理。</p>
 <div id="67d8b38a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">256</span></span>
@@ -278,6 +331,7 @@ window.Quarto = {
 <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    pin_memory<span class="op">=</span><span class="va">True</span></span>
 <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="定义alennet模型" class="level2">
 <h2 class="anchored" data-anchor-id="定义alennet模型">定义AlenNet模型</h2>
 <p>CIFAR-10的尺寸是 <span class="math inline">3 \times 32 \times 32</span>，需要调整卷积核和padding大小适应图像输入。</p>
@@ -447,6 +501,7 @@ Linear output shape:     torch.Size([1, 10])</code></pre>
 </div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
