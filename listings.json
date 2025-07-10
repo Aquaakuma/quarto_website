@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/pytorch_implementation_of_GoogLeNet/index.html",
       "/posts/pytorch_implementation_of_VGG/index.html",
       "/posts/pytorch_implementation_of_AlexNet/index.html",
       "/posts/pytorch_implementation_of_LeNet/index.html",
