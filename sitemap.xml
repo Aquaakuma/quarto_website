@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
-    <lastmod>2025-07-10T04:09:04.896Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/deep_learning_from_scrach_CNN/index.html</loc>
-    <lastmod>2025-07-10T04:09:04.907Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_LeNet/index.html</loc>
-    <lastmod>2025-07-10T04:09:04.915Z</lastmod>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_ResNet/index.html</loc>
+    <lastmod>2025-07-24T11:53:11.238Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_AlexNet/index.html</loc>
-    <lastmod>2025-07-10T04:09:04.909Z</lastmod>
+    <lastmod>2025-07-24T11:53:11.235Z</lastmod>
   </url>
   <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_GoogLeNet/index.html</loc>
-    <lastmod>2025-07-10T04:09:04.913Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_VGG/index.html</loc>
-    <lastmod>2025-07-10T04:09:04.917Z</lastmod>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_LeNet/index.html</loc>
+    <lastmod>2025-07-24T11:53:11.237Z</lastmod>
   </url>
   <url>
     <loc>https://Aquaakuma.github.io/quarto_website/index.html</loc>
-    <lastmod>2025-07-10T04:09:04.896Z</lastmod>
+    <lastmod>2025-07-24T11:53:11.222Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/about.html</loc>
+    <lastmod>2025-07-24T11:53:11.222Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/deep_learning_from_scrach_CNN/index.html</loc>
+    <lastmod>2025-07-24T11:53:11.233Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_GoogLeNet/index.html</loc>
+    <lastmod>2025-07-24T11:53:11.235Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aquaakuma.github.io/quarto_website/posts/pytorch_implementation_of_VGG/index.html</loc>
+    <lastmod>2025-07-24T11:53:11.239Z</lastmod>
   </url>
 </urlset>

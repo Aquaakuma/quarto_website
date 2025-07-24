@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -253,13 +253,13 @@ window.Quarto = {
 <p>在GoogLeNet中，基本的卷积块被称为Inception块（Inception block）。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./assets/inception.svg" class="img-fluid figure-img"></p>
+<p><img src="https://s2.loli.net/2025/07/19/7bHN8XdL5MVeq4O.png" class="img-fluid figure-img"></p>
 <figcaption>图1：Inception块的架构。</figcaption>
 </figure>
 </div>
 <p>如图1所示，Inception块有四条并行的计算路径，分别是 <span class="math inline">1 \times 1</span>、<span class="math inline">3 \times 3</span>、<span class="math inline">5 \times 5</span>的卷积层和一个 <span class="math inline">3 \times 3</span> 的最大汇聚层，图中额外的 <span class="math inline">1 \times 1</span> 的卷积层是用来减少通道数的，称为Reduce层。这四条路径最后都输出的高和宽一致，最后合并到一起。</p>
 <p>实现一个Inception块需要接收<code>in_channels, ch1x1, ch3x3red, ch3x3, ch5x5red, ch5x5, pool_proj</code>这几个参数，分别代表输入通道数、<span class="math inline">1 \times 1</span> 卷积层的输出通道数、<span class="math inline">3 \times 3</span> 卷积层前置Reduce层的输出通道数、<span class="math inline">3 \times 3</span> 卷积层的输出通道数、<span class="math inline">5 \times 5</span> 卷积层前置Reduce层的输出通道数、<span class="math inline">5 \times 5</span> 卷积层的输出通道数、池化层的输出通道数。</p>
-<div id="12974080" class="cell" data-execution_count="76">
+<div id="12974080" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -272,7 +272,7 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> training_visualizer <span class="im">import</span> TrainingPlotter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b7319d88" class="cell" data-execution_count="69">
+<div id="b7319d88" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BasicConv2d(nn.Module):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_channels, out_channels, <span class="op">**</span>kwargs):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(BasicConv2d, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -322,7 +322,7 @@ window.Quarto = {
 <figcaption>图2：辅助分类器的结构。</figcaption>
 </figure>
 </div>
-<div id="12becae8" class="cell" data-execution_count="70">
+<div id="12becae8" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> InceptionAux(nn.Module):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_channels, num_classes):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(InceptionAux, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -366,7 +366,7 @@ window.Quarto = {
 <figcaption>图4：GoogLeNet各层参数</figcaption>
 </figure>
 </div>
-<div id="4151368a" class="cell" data-execution_count="71">
+<div id="4151368a" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GoogLeNet(nn.Module):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes<span class="op">=</span><span class="dv">1000</span>, aux_logits<span class="op">=</span><span class="va">True</span>, init_weight<span class="op">=</span><span class="va">False</span>):</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(GoogLeNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -472,7 +472,7 @@ window.Quarto = {
 <section id="加载数据集" class="level2">
 <h2 class="anchored" data-anchor-id="加载数据集">加载数据集</h2>
 <p>这里使用 Oxford-IIIT Pet Dataset 数据集来训练，它有37个宠物品种的类，每个类大概200张图片。</p>
-<div id="fc48af85" class="cell" data-execution_count="72">
+<div id="fc48af85" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>BATCH_SIZE <span class="op">=</span> <span class="dv">64</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据集存放目录</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>DATASET_DIR <span class="op">=</span> <span class="vs">r'data/food-101'</span></span>
@@ -530,32 +530,12 @@ window.Quarto = {
 <span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    shuffle<span class="op">=</span><span class="va">False</span>, </span>
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    num_workers<span class="op">=</span><span class="dv">4</span>, </span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    pin_memory<span class="op">=</span><span class="va">True</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 数据集可视化</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_dataset(dataset, num_images<span class="op">=</span><span class="dv">5</span>):</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, num_images, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_images):</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>        img, label <span class="op">=</span> dataset[i]</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> img.permute(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>)  <span class="co"># 转换为 HWC 格式</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> img.numpy() <span class="op">*</span> np.array([<span class="fl">0.229</span>, <span class="fl">0.224</span>, <span class="fl">0.225</span>]) <span class="op">+</span> np.array([<span class="fl">0.485</span>, <span class="fl">0.456</span>, <span class="fl">0.406</span>])  <span class="co"># 反标准化</span></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> np.clip(img, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># 确保像素值在 [0, 1] 范围内</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        axes[i].imshow(img)</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>        axes[i].set_title(dataset.classes[label])</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        axes[i].axis(<span class="st">'off'</span>)</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>visualize_dataset(train_dataset, num_images<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="开始训练" class="level2">
 <h2 class="anchored" data-anchor-id="开始训练">开始训练</h2>
-<div id="1a596cc4" class="cell" data-execution_count="67">
+<div id="1a596cc4" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 配置训练参数</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">50</span></span>
@@ -567,22 +547,6 @@ window.Quarto = {
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>MODEL_DIR <span class="op">=</span> <span class="vs">r'/kaggle/working/'</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(MODEL_DIR):</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    os.makedirs(MODEL_DIR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">PermissionError</span>                           Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[67]</span><span class="ansi-green-fg">, line 11</span>
-<span class="ansi-green-fg">      9</span> MODEL_DIR = <span class="ansi-yellow-fg">r</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">/kaggle/working/</span><span class="ansi-yellow-fg">'</span>
-<span class="ansi-green-fg">     10</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> os.path.exists(MODEL_DIR):
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">11</span>     <span class="ansi-yellow-bg">os</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">makedirs</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">MODEL_DIR</span><span class="ansi-yellow-bg">)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">&lt;frozen os&gt;:215</span>, in <span class="ansi-cyan-fg">makedirs</span><span class="ansi-blue-fg">(name, mode, exist_ok)</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">&lt;frozen os&gt;:225</span>, in <span class="ansi-cyan-fg">makedirs</span><span class="ansi-blue-fg">(name, mode, exist_ok)</span>
-
-<span class="ansi-red-fg">PermissionError</span>: [Errno 13] Permission denied: '/kaggle'</pre>
-</div>
-</div>
 </div>
 <div id="19797732" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置训练设备</span></span>
